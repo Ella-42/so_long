@@ -6,14 +6,17 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/06/05 15:51:49 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:38:46 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
-
 # define SO_LONG_H
 
+/**/
 # include "libft/libft.h"
+
+/**/
+# include "mlx/mlx.h"
 
 #endif
