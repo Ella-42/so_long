@@ -6,7 +6,7 @@
 #    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 20:49:34 by lpeeters          #+#    #+#              #
-#    Updated: 2023/06/05 15:52:58 by lpeeters         ###   ########.fr        #
+#    Updated: 2023/06/07 14:50:07 by lpeeters         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,14 @@ RM = rm -rf
 #flags
 CFLAGS = -Wall -Wextra -Werror
 
+#minilibx flags
+MLXFLAGS = -L /usr/lib -l Xext -l X11 -l m -l z
+
 #find sources
-SRCS = ${shell find . -name "*.c" -not -path "*lib*"}
+SRCS = ${shell find . -name "*.c" -not -path "*lib*" -a -not -path "*mlx*"}
 
 #header file
-HEADER = ${shell find . -name "*.h" -not -path "*lib*"}
+HEADER = ${shell find . -name "*.h" -not -path "*lib*" -a -not -path "*mlx*"}
 
 #find other makefiles
 MKFL = ${shell find . -mindepth 2 -name "Makefile" -o -name "makefile"}
@@ -50,14 +53,14 @@ LIB_ALL = ${foreach libdir,${LIB_DIRS},-L ${libdir}} \
 	  ${foreach libname,${LIB_NAMES},-l ${libname}}
 
 #make other projects that were found
-MKFL_ALL = ${foreach mkfldir,${MKFL_DIRS}, make -C ${mkfldir}}
+MKFL_ALL = ${foreach mkfldir,${MKFL_DIRS}, make -C ${mkfldir} ;}
 
 #make
 all: MK ${NAME}
 
 #make project into program
 ${NAME}:${SRCS} ${HEADER}
-	${CC} ${CFLAGS} ${SRCS} ${HEADER} ${LIB_ALL} -o ${NAME}
+	${CC} ${CFLAGS} ${SRCS} ${HEADER} ${LIB_ALL} ${MLXFLAGS} -o ${NAME}
 	chmod +x ${NAME}
 
 #make library
@@ -66,7 +69,7 @@ MK:
 
 #clean object files and directories
 clean:
-	${foreach mkfldir,${MKFL_DIRS}, make -C ${mkfldir} fclean}
+	${foreach mkfldir,${MKFL_DIRS}, make -C ${mkfldir} fclean ;}
 
 #clean everything that was made
 fclean: clean
