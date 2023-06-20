@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/06/16 23:06:43 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/06/20 08:21:20 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,36 @@
 /*minilibx library functions*/
 # include "mlx/mlx.h"
 
-/*data structure*/
+/*mlx data structure*/
 typedef struct s_data
 {
-	void	*ptr;
+	void	*mlx;
+	void	*win;
+	char	*img;
 	char	*adr;
 	int		bpp;
 	int		llen;
 	int		end;
 }	t_data;
 
-typedef struct s_edges
-{
-	int	l;
-	int	r;
-	int	t;
-	int	b;
-	int	m;
-}	t_edges;
+/*macros*/
+# define SUCCESS 0
+# define TRUE 0
+# define FAILURE 1
+# define ERROR 1
+# define FALSE 1
+# define AC 2
+# define BER 128
+
+/*key macros*/
+# define ESCAPE 65307
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define UP 65362
+# define LEFT 65361
+# define DOWN 65364
+# define RIGHT 65363
 
 #endif

@@ -6,103 +6,88 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:34 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/06/16 23:06:41 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/06/20 08:21:14 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	key_logger(int keycode, void *param)
+/*exit in a clean way*/
+int	close_window(t_data *mlx, int status)
 {
-	void	*mlx;
-
-	if (keycode == 27)
-	{
-		mlx = param;
-		mlx_loop_end(mlx);
-	}
+	mlx_destroy_window(mlx->mlx, mlx->win);
+	mlx_destroy_display(mlx->mlx);
+	free(mlx->mlx);
+	if (status == SUCCESS)
+		exit(EXIT_SUCCESS);
+	else if (status == FAILURE)
+		exit(EXIT_FAILURE);
 	return (0);
 }
 
-void	put_pixel(t_data *img, int x, int y, int color)
+/*defines what happens when certain keys are pressed*/
+int	key_event(int keycode, void *mlx)
 {
-	char	*dst;
-
-	dst = img->adr + (y * img->llen + x * (img->bpp / 8));
-	*(unsigned int *)dst = color;
+	ft_printf("Keycode: %i\n", keycode);
+	if (keycode == ESCAPE)
+		close_window(mlx, SUCCESS);
+	return (0);
 }
 
-void	filler(t_data *img, t_edges shape, int color)
+/*error handler*/
+int	error_handler(t_data *mlx, int type, int status)
 {
-	int	t;
+	if (type == AC)
+		ft_printf("Error: invalid number of arguments\n");
+	else if (type == BER)
+		ft_printf("Error: invalid file type\n");
+	if (status == ERROR)
+		exit(EXIT_FAILURE);
+	else if (status == SUCCESS)
+		close_window(mlx, SUCCESS);
+	else if (status == FAILURE)
+		close_window(mlx, FAILURE);
+	return (0);
+}
 
-	t = shape.t;
-	while (shape.l <= shape.r)
+int	check_filetype(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		shape.t = t;
-		while (shape.t <= shape.b)
+		if (str[i] == '.' && str[i + 1] != '\0')
+			return (TRUE);
+		i++;
+	}
+	error_handler(NULL, BER, ERROR);
+	return (FALSE);
+}
+
+/*parse map, handle errors, convert into interactive 2d video game*/
+int	main(int ac, char **av)
+{
+	t_data	mlx;
+	char	**suffix;
+
+	(void)ac;
+	if (ac != 2)
+		error_handler(&mlx, AC, ERROR);
+	if (check_filetype(av[1]) == TRUE)
+	{
+		suffix = ft_split(av[1], '.');
+		if (ft_strncmp(suffix[1], "ber", 3) || ft_strlen(suffix[1]) != 3)
 		{
-			put_pixel(img, shape.l, shape.t, color);
-			shape.t++;
+			free_arr(suffix);
+			error_handler(NULL, BER, ERROR);
 		}
-		shape.l++;
+		free_arr(suffix);
 	}
-}
-
-void	draw_tri(t_data *img, t_edges shape, int color)
-{
-	int	l;
-	int	r;
-
-	put_pixel(img, shape.t, shape.m, color);
-	l = shape.m - 1;
-	r = shape.m + 1;
-	while (shape.t <= shape.b)
-	{
-		put_pixel(img, l, shape.t, color);
-		put_pixel(img, r, shape.t, color);
-		l--;
-		r++;
-		shape.t++;
-	}
-	while (l <= r)
-	{
-		put_pixel(img, l, shape.b, color);
-		l++;
-	}
-}
-
-int	main(void)
-{
-	void	*mlx;
-	int	width;
-	int	length;
-	char	*title;
-	void	*win;
-	t_data	img;
-	//t_edges	rect;
-	//t_edges	sqr;
-	t_edges	tri;
-
-	width = 1920;
-	length = 1080;
-	mlx = mlx_init();
-	title = "so_long";
-	win = mlx_new_window(mlx, width, length, title);
-	img.ptr = mlx_new_image(mlx, width, length);
-	img.adr = mlx_get_data_addr(img.ptr, &img.bpp, &img.llen, &img.end);
-	//rect.t = length / 4;
-	//rect.b = length - rect.t;
-	//rect.l = width / 4;
-	//rect.r = width - rect.l;
-	//sqr.t = 0;
-	//sqr.b = length;
-	//sqr.l = (width / 2) - (length / 2);
-	//sqr.r = (width / 2) + (length / 2);
-	tri.t = length / 2 - length / 4;
-	tri.b = length - length / 4;
-	tri.m = width / 2;
-	draw_tri(&img, /*rectsqr*/tri, 0xFFFFFF);
-	mlx_put_image_to_window(mlx, win, img.ptr, 0, 0);
-	mlx_loop(mlx);
+	mlx.mlx = mlx_init();
+	mlx.win = mlx_new_window(mlx.mlx, 1920, 1080, "so_long");
+	mlx_key_hook(mlx.win, key_event, &mlx);
+	mlx_hook(mlx.win, 17, 0L, close_window, &mlx);
+	mlx_loop(mlx.mlx);
+	return (0);
 }
