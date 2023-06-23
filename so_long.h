@@ -6,32 +6,36 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/06/20 08:21:20 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/06/23 11:50:12 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-/*personal libft library functions*/
+//personal libft library functions
 # include "libft/libft.h"
 
-/*minilibx library functions*/
+//minilibx library functions
 # include "mlx/mlx.h"
 
-/*mlx data structure*/
+//NULL
+# include <stddef.h>
+
+//open
+# include <fcntl.h>
+
+//free, exit
+# include <stdlib.h>
+
+//mlx data structure
 typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
-	char	*img;
-	char	*adr;
-	int		bpp;
-	int		llen;
-	int		end;
-}	t_data;
+}			t_data;
 
-/*macros*/
+//macros
 # define SUCCESS 0
 # define TRUE 0
 # define FAILURE 1
@@ -40,7 +44,7 @@ typedef struct s_data
 # define AC 2
 # define BER 128
 
-/*key macros*/
+//key macros
 # define ESCAPE 65307
 # define W 119
 # define A 97
@@ -50,5 +54,28 @@ typedef struct s_data
 # define LEFT 65361
 # define DOWN 65364
 # define RIGHT 65363
+
+/*************************************/
+/*           exit_handling           */
+/*************************************/
+
+//exit in a clean way
+int		close_window(t_data *mlx, int status);
+
+//error handler
+int		error_handler(t_data *mlx, int type, int status);
+
+//defines what happens when certain keys are pressed
+int		key_event(int keycode, void *mlx);
+
+/*************************************/
+/*              checker              */
+/*************************************/
+
+//check if argument is of the correct filetype
+void	check_filetype(char *str);
+
+//check if map is correct
+void	check_map(char	*str);
 
 #endif

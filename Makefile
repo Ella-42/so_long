@@ -6,7 +6,7 @@
 #    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 20:49:34 by lpeeters          #+#    #+#              #
-#    Updated: 2023/06/07 14:50:07 by lpeeters         ###   ########.fr        #
+#    Updated: 2023/06/21 10:29:02 by lpeeters         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ CFLAGS = -Wall -Wextra -Werror
 
 #minilibx flags
 MLXFLAGS = -L /usr/lib -l Xext -l X11 -l m -l z
+
+#redirect output to /dev/null to silence it
+OUT = > /dev/null 2> /dev/null
 
 #find sources
 SRCS = ${shell find . -name "*.c" -not -path "*lib*" -a -not -path "*mlx*"}
@@ -53,27 +56,27 @@ LIB_ALL = ${foreach libdir,${LIB_DIRS},-L ${libdir}} \
 	  ${foreach libname,${LIB_NAMES},-l ${libname}}
 
 #make other projects that were found
-MKFL_ALL = ${foreach mkfldir,${MKFL_DIRS}, make -C ${mkfldir} ;}
+MKFL_ALL = ${foreach mkfldir,${MKFL_DIRS}, make -C ${mkfldir} ${OUT} ;}
 
 #make
 all: MK ${NAME}
 
 #make project into program
 ${NAME}:${SRCS} ${HEADER}
-	${CC} ${CFLAGS} ${SRCS} ${HEADER} ${LIB_ALL} ${MLXFLAGS} -o ${NAME}
-	chmod +x ${NAME}
+	@${CC} ${CFLAGS} ${SRCS} ${HEADER} ${LIB_ALL} ${MLXFLAGS} -o ${NAME}
+	@chmod +x ${NAME}
 
 #make library
 MK:
-	${MKFL_ALL}
+	@${MKFL_ALL}
 
 #clean object files and directories
 clean:
-	${foreach mkfldir,${MKFL_DIRS}, make -C ${mkfldir} fclean ;}
+	@${foreach mkfldir,${MKFL_DIRS}, make -C ${mkfldir} fclean ${OUT} ;}
 
 #clean everything that was made
 fclean: clean
-	${RM} ${NAME}
+	@${RM} ${NAME}
 
 #remake
 re: fclean all

@@ -6,7 +6,7 @@
 #    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 13:58:55 by lpeeters          #+#    #+#              #
-#    Updated: 2023/05/18 22:05:02 by lpeeters         ###   ########.fr        #
+#    Updated: 2023/06/23 11:49:55 by lpeeters         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,8 @@ SRCS = libftprintf/ft_lstiter.c \
        libftprintf/ft_substr.c \
        libftprintf/ft_striteri.c \
        libftprintf/ft_lstlast.c \
+       libftprintf/get_next_line_bonus.c \
+       libftprintf/get_next_line_utils_bonus.c \
 
 #object directory
 OBJ_DIR = OBJS/

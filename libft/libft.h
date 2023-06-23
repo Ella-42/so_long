@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 13:47:49 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/05/12 17:48:09 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/06/23 11:50:23 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,16 @@
 # include <stdarg.h>
 # include <stdint.h>
 # include <stdlib.h>
+# include <fcntl.h>
+# include <stddef.h>
 
-/*libft*/
+//get_next_line
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1000
+# endif
+
+//libft
 
 typedef struct s_list
 {
@@ -26,7 +34,7 @@ typedef struct s_list
 	struct s_list	*next;
 }			t_list;
 
-/*libft*/
+//libft
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -40,7 +48,7 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 int		ft_atoi(const char *str);
 int		ft_lstsize(t_list *lst);
 
-/*ft_printf*/
+//ft_printf
 
 int		ft_putunsigned(unsigned int nb);
 int		ft_unsigned_len(unsigned int nb);
@@ -56,7 +64,7 @@ int		ft_puthex(unsigned int num, const char format);
 int		hex_len(unsigned int num);
 int		ft_printf(const char *format, ...);
 
-/*libft*/
+//libft
 
 void	*ft_memset(void *s, int c, size_t n);
 void	ft_bzero(void *s, size_t n);
@@ -76,12 +84,12 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 void	free_arr(char **array);
 
-/*ft_printf*/
+//ft_printf
 
 void	ft_put_ptr(uintptr_t nb);
 void	ft_put_hex(unsigned int num, const char format);
 
-/*libft*/
+//libft
 
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
@@ -94,19 +102,31 @@ char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
-/*ft_printf*/
+//ft_printf
 
 char	*ft_uitoa(unsigned int nb);
 char	*ft_pitoa(int n);
 char	*ft_char(char *s, unsigned int number, int len);
 
-/*libft*/
+//get_next_line
+
+char	*ft_get_line(int fd, char *line);
+char	*new_line(char *line);
+char	*ft_get_next_line(char *line);
+char	*get_next_line(int fd);
+char	*ft_gstrchr(char *s, int c);
+char	*ft_gstrjoin(char *line, char *buff);
+//libft
 
 size_t	ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 
-/*libft*/
+//get_next_line
+
+size_t	ft_gstrlen(char *s);
+
+//libft
 
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
