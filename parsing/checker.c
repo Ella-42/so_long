@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:35:04 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/06/23 13:56:48 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:46:01 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,14 @@ void	check_map(char	*str)
 {
 	char	*line;
 	int		fd;
-	int		i;
 
 	fd = open(str, O_RDONLY);
-	i = 0;
-	while (i < 6)
+	line = get_next_line(fd);
+	while (line)
 	{
+		free(line);
 		line = get_next_line(fd);
 		ft_printf("test: %s", line);
-		free(line);
-		i++;
 	}
 	close(fd);
 }
