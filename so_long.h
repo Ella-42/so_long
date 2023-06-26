@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/06/23 17:46:06 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:29:36 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,13 @@ int		key_event(int keycode, void *mlx);
 //check if argument is of the correct filetype
 void	check_filetype(char *str);
 
-//check if map is correct
-void	check_map(char	*str);
+//calculate the length of a map
+int		maplen(char	*str);
+
+//print the map
+void	printmap(char **map);
+
+//convert map to array
+char	**maptoarr(char *str);
 
 #endif

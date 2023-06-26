@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:35:04 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/06/23 17:46:01 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/06/26 19:29:39 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,59 @@ void	check_filetype(char *str)
 		error_handler(NULL, BER, ERROR);
 }
 
-//check if map is correct
-void	check_map(char	*str)
+//calculate the length of a map
+int	maplen(char	*str)
 {
 	char	*line;
 	int		fd;
+	int		count;
 
 	fd = open(str, O_RDONLY);
 	line = get_next_line(fd);
+	count = 1;
 	while (line)
 	{
 		free(line);
 		line = get_next_line(fd);
-		ft_printf("test: %s", line);
+		if (line != NULL)
+			count ++;
 	}
 	close(fd);
+	return (count);
+}
+
+//print the map
+void	printmap(char **map)
+{
+	int		i;
+
+	i = 0;
+	while (map[i] != NULL)
+		ft_printf("test: %s", map[i++]);
+}
+
+//convert map to array
+char	**maptoarr(char *str)
+{
+	char	*line;
+	char	**map;
+	int		fd;
+	int		count;
+	int		i;
+
+	count = maplen(str);
+	map = (char **)malloc(sizeof(char *) * (count + 1));
+	fd = open(str, O_RDONLY);
+	line = get_next_line(fd);
+	i = 0;
+	while (line)
+	{
+		if (line != NULL)
+			map[i++] = ft_strdup(line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	map[i] = NULL;
+	printmap(map);
+	return (map);
 }
