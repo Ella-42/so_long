@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:28:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/06/22 14:15:48 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:44:59 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,18 @@ int	close_window(t_data *mlx, int status)
 }
 
 //error handler
-int	error_handler(t_data *mlx, int type, int status)
+int	error_handler(t_data *mlx, int type, int status, char **arr)
 {
-	if (type == AC)
-		ft_printf("Error: invalid number of arguments\n");
-	else if (type == BER)
-		ft_printf("Error: invalid file type\n");
+	if (type == AC || type == BER)
+		ft_printf("Error: invalid argument\n");
+	else if (type == MAP)
+		ft_printf("Error: invalid map\n");
+	else if (type == MALLOC)
+		perror("malloc");
+	else if (type == OPEN)
+		perror("open");
+	if (arr != NULL)
+		free_arr(arr);
 	if (status == ERROR)
 		exit(EXIT_FAILURE);
 	else if (status == SUCCESS)
