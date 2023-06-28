@@ -6,18 +6,18 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:28:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/06/27 16:44:59 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/06/28 18:02:57 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
 //exit in a clean way
-int	close_window(t_data *mlx, int status)
+int	close_window(t_mlx *mlx, int status)
 {
-	mlx_destroy_window(mlx->mlx, mlx->win);
-	mlx_destroy_display(mlx->mlx);
-	free(mlx->mlx);
+	mlx_destroy_window(mlx->ptr, mlx->win);
+	mlx_destroy_display(mlx->ptr);
+	free(mlx->ptr);
 	if (status == FAILURE)
 		exit(EXIT_FAILURE);
 	exit(EXIT_SUCCESS);
@@ -25,7 +25,7 @@ int	close_window(t_data *mlx, int status)
 }
 
 //error handler
-int	error_handler(t_data *mlx, int type, int status, char **arr)
+int	error_handler(t_mlx *mlx, int type, int status, char **arr)
 {
 	if (type == AC || type == BER)
 		ft_printf("Error: invalid argument\n");

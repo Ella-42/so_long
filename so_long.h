@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/06/27 16:48:10 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/06/28 19:27:57 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 //NULL
 # include <stddef.h>
 
+//bool
+# include <stdbool.h>
+
 //open
 # include <fcntl.h>
 
@@ -32,11 +35,22 @@
 # include <stdio.h>
 
 //mlx data structure
-typedef struct s_data
+typedef struct s_mlx
 {
-	void	*mlx;
+	void	*ptr;
 	void	*win;
-}			t_data;
+}			t_mlx;
+
+//map data structure
+typedef struct s_map
+{
+	char	**arr;
+	char	*str;
+	char	*line;
+	bool	conditional;
+	int		fd;
+	int		i;
+}			t_map;
 
 //macros
 # define SUCCESS 0
@@ -66,10 +80,10 @@ typedef struct s_data
 /*************************************/
 
 //exit in a clean way
-int		close_window(t_data *mlx, int status);
+int		close_window(t_mlx *mlx, int status);
 
 //error handler
-int		error_handler(t_data *mlx, int type, int status, char **arr);
+int		error_handler(t_mlx *mlx, int type, int status, char **arr);
 
 //defines what happens when certain keys are pressed
 int		key_event(int keycode, void *mlx);
@@ -79,15 +93,15 @@ int		key_event(int keycode, void *mlx);
 /*************************************/
 
 //check if argument is of the correct filetype
-void	check_filetype(char *str);
+void	check_filetype(t_map *map);
 
-//calculate the length of a map
-int		maplen(char	*str);
-
-//check the map
-void	checkmap(char **map);
+//calculate the length of a map and allocate memory for it
+char	**maparr(t_map *map);
 
 //convert map to array
-char	**maptoarr(char *str);
+char	**maptoarr(t_map *map);
+
+//print the map
+void	checkmap(t_map *map);
 
 #endif
