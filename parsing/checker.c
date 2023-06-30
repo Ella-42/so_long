@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:35:04 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/06/28 19:02:31 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/06/30 22:34:15 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 //check if argument is of the correct filetype
 void	check_filetype(t_map *map)
 {
-	char	**suffix;
-
 	map->conditional = true;
 	map->i = 0;
 	while (map->str[map->i])
@@ -28,10 +26,11 @@ void	check_filetype(t_map *map)
 	}
 	if (map->conditional == false)
 	{
-		suffix = ft_split(map->str, '.');
-		if (ft_strncmp(suffix[1], "ber", 3) || ft_strlen(suffix[1]) != 3)
+		map->suffix = ft_split(map->str, '.');
+		if (ft_strncmp(map->suffix[1], "ber", 3)
+			|| ft_strlen(map->suffix[1]) != 3)
 			map->conditional = false;
-		free_arr(suffix);
+		free_arr(map->suffix);
 	}
 	if (map->conditional == false)
 		error_handler(NULL, BER, ERROR, NULL);
@@ -40,21 +39,19 @@ void	check_filetype(t_map *map)
 //calculate the length of a map and allocate memory for it
 char	**maparr(t_map *map)
 {
-	int		count;
-
 	map->fd = open(map->str, O_RDONLY);
 	if (map->fd < 0)
 		error_handler(NULL, OPEN, ERROR, NULL);
 	map->line = get_next_line(map->fd);
-	count = 0;
+	map->count = 0;
 	while (map->line != NULL)
 	{
 		free(map->line);
 		map->line = get_next_line(map->fd);
-		count++;
+		map->count++;
 	}
 	close(map->fd);
-	map->arr = (char **)malloc(sizeof(char *) * (count + 1));
+	map->arr = (char **)malloc(sizeof(char *) * (map->count + 1));
 	if (map->arr == NULL)
 		error_handler(NULL, MALLOC, ERROR, NULL);
 	return (map->arr);
@@ -89,11 +86,19 @@ char	**maptoarr(t_map *map)
 //print the map
 void	checkmap(t_map *map)
 {
+	map->j = 0;
+	while (map->arr[0][map->j] && map->arr[map->count - 1][map->j])
+		if (map->arr[0][map->j] != '1'
+			|| map->arr[map->count - 1][map->j++] != '1')
+			error_handler(NULL, MAP, ERROR, map->arr);
 	map->i = 0;
 	while (map->arr[map->i] != NULL)
 	{
-		if (ft_strlen(map->arr[0]) != ft_strlen(map->arr[map->i++]))
+		if (map->arr[map->i][0] != '1' || map->arr[map->i][map->j - 1] != '1')
 			error_handler(NULL, MAP, ERROR, map->arr);
-		ft_printf("%s line: %i\n", map->arr[map->i - 1], map->i);
+		if (ft_strlen(map->arr[0]) != ft_strlen(map->arr[map->i]))
+			error_handler(NULL, MAP, ERROR, map->arr);
+		ft_printf("%s line: %i\n", map->arr[map->i], map->i + 1);
+		map->i++;
 	}
 }
