@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:35:04 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/03 22:17:59 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:43:15 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ char	**maparr(t_map *map)
 		map->line = get_next_line(map->fd);
 		map->count++;
 	}
+	if (map->count < 3)
+		error_handler(NULL, MAP, ERROR, NULL);
 	close(map->fd);
 	map->arr = (char **)malloc(sizeof(char *) * (map->count + 1));
 	if (map->arr == NULL)
@@ -77,10 +79,35 @@ char	**maptoarr(t_map *map)
 		map->line = get_next_line(map->fd);
 	}
 	close(map->fd);
-	if (map->conditional == false)
-		error_handler(NULL, MALLOC, ERROR, map->arr);
 	map->arr[map->i] = NULL;
+	if (map->conditional == false || ft_strlen(map->arr[0]) < 3)
+		error_handler(NULL, MALLOC, ERROR, map->arr);
 	return (map->arr);
+}
+
+//parse the elements in the map and check if they are correct
+void	mapparser(t_map *map)
+{
+	map->play = 0;
+	map->coll = 0;
+	map->ext = 0;
+	map->i = 0;
+	while (map->arr[map->i] != NULL)
+	{
+		map->j = 0;
+		while (map->arr[map->i][map->j])
+		{
+			if (map->arr[map->i][map->j] == 'P')
+				map->play += 1;
+			if (map->arr[map->i][map->j] == 'C')
+				map->coll += 1;
+			if (map->arr[map->i][map->j++] == 'E')
+				map->ext += 1;
+		}
+		map->i++;
+	}
+	if (map->play != 1 || map->coll < 1 || map->ext != 1)
+		error_handler(NULL, MAP, ERROR, map->arr);
 }
 
 //print the map
@@ -101,4 +128,5 @@ void	checkmap(t_map *map)
 		ft_printf("%s line: %i\n", map->arr[map->i], map->i + 1);
 		map->i++;
 	}
+	mapparser(map);
 }

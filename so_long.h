@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/03 22:18:00 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/04 12:47:34 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ typedef struct s_map
 	char	*line;
 	bool	conditional;
 	int		count;
+	int		coll;
+	int		ext;
+	int		play;
 	int		fd;
 	int		i;
 	int		j;
