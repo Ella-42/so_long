@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/04 12:47:34 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/05 17:39:54 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct s_map
 	int		fd;
 	int		i;
 	int		j;
+	int		x;
+	int		y;
 }			t_map;
 
 //macros
@@ -109,5 +111,10 @@ char	**maptoarr(t_map *map);
 
 //print the map
 void	checkmap(t_map *map);
+
+//
+
+//
+void	testing(t_map *map);
 
 #endif
