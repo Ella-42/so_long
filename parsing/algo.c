@@ -6,13 +6,13 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:29:24 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/05 19:26:01 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/06 13:30:06 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	test1(t_map *map)
+void	getpos(t_map *map, t_pos *pos, char c)
 {
 	map->y = 0;
 	while (map->arr[map->y] != NULL)
@@ -20,30 +20,32 @@ void	test1(t_map *map)
 		map->x = 0;
 		while (map->arr[map->y][map->x])
 		{
-			if (map->arr[map->y][map->x] == 'P' || map->arr[map->y][map->x]
-				== 'C' || map->arr[map->y][map->x] == 'E')
-				ft_printf("char:%c, y:%i, x:%i\n",
-					map->arr[map->y][map->x], map->y, map->x);
+			if (map->arr[map->y][map->x] == c)
+			{
+				pos->c = map->arr[map->y][map->x];
+				pos->y = map->y;
+				pos->x = map->x;
+			}
 			map->x++;
 		}
 		map->y++;
 	}
 }
 
-void	test2(t_map *map)
+void	test(t_map *map, t_pos *pos)
 {
-	map->y = 1;
-	map->x = 1;
-	while (map->y < map->count - 1)
+	while (pos->y < map->count - 1)
 	{
-		if (map->arr[map->y][map->x] == '1')
-			printf("Error\n");
-		map->y++;
+		ft_printf("c:%c, y:%i, x:%i\n", map->arr[pos->y][pos->x],
+			pos->y, pos->x);
+		pos->y++;
 	}
 }
 
 void	testing(t_map *map)
 {
-	test1(map);
-	test2(map);
+	t_pos	pos;
+
+	getpos(map, &pos, 'P');
+	test(map, &pos);
 }

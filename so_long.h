@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/05 17:39:54 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/06 23:29:25 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,14 @@ typedef struct s_map
 	int		x;
 	int		y;
 }			t_map;
+
+//position data structure
+typedef struct s_pos
+{
+	char	c;
+	int		y;
+	int		x;
+}			t_pos;
 
 //macros
 # define SUCCESS 0
