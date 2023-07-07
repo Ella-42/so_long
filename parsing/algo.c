@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:29:24 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/07 13:29:13 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/07 15:11:50 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	getpos(t_map *map, t_pos *pos, char c)
 {
+	ft_printf("\n");
 	map->y = 0;
 	while (map->arr[map->y] != NULL)
 	{
