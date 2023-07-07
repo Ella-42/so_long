@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:29:24 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/06 13:30:06 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:29:13 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ void	test(t_map *map, t_pos *pos)
 
 void	testing(t_map *map)
 {
-	t_pos	pos;
+	t_pos	ppos;
+	t_pos	epos;
 
-	getpos(map, &pos, 'P');
-	test(map, &pos);
+	getpos(map, &ppos, 'P');
+	test(map, &ppos);
+	getpos(map, &epos, 'E');
+	ft_printf("c:%c, y:%i, x:%i\n", map->arr[epos.y][epos.x],
+		epos.y, epos.x);
 }
