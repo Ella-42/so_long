@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/08 00:17:35 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/11 22:51:11 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,16 @@ typedef struct s_map
 	int		j;
 	int		x;
 	int		y;
+	int		prev;
 }			t_map;
 
-//position data structure
-typedef struct s_pos
+//backtracing data structure
+typedef struct s_bt
 {
-	char	c;
-	int		y;
-	int		x;
-}			t_pos;
+	int			mv;
+	struct s_bt	*next;
+	struct s_bt	*prev;
+}				t_bt;
 
 //macros
 # define SUCCESS 0
@@ -74,6 +75,10 @@ typedef struct s_pos
 # define FAILURE 1
 # define ERROR 1
 # define FALSE 1
+# define CASE1 1
+# define CASE2 2
+# define CASE3 3
+# define CASE4 4
 # define MALLOC 12
 # define MAP -22
 # define AC 22
@@ -120,9 +125,28 @@ char	**maptoarr(t_map *map);
 //print the map
 void	checkmap(t_map *map);
 
-//
+/*************************************/
+/*               algo                */
+/*************************************/
+
+//testing
+void	print_map(t_map *map);
+
+//fetch the position of a character
+void	getpos(t_map *map, char c);
+
+//logic handler
+void	cases(t_map *map);
+
+//testing
+void	testing(t_map *map);
 
 //
-void	testing(t_map *map);
+
+//print a linked list's values
+void	print_dll(t_bt *bt);
+
+//initialize doubly linked list
+t_bt	*mkdll(int move);
 
 #endif

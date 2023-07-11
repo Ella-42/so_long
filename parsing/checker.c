@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:35:04 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/08 00:17:33 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:02:59 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,19 +113,11 @@ void	mapparser(t_map *map)
 //print the map
 void	checkmap(t_map *map)
 {
-	int	x;
-
 	map->j = 0;
 	while (map->arr[0][map->j] && map->arr[map->count - 1][map->j])
 		if (map->arr[0][map->j] != '1'
 			|| map->arr[map->count - 1][map->j++] != '1')
 			error_handler(NULL, MAP, ERROR, map->arr);
-	ft_printf("X ");
-	x = 0;
-	while (x <= map->count)
-		ft_printf("%i", x++);
-	ft_printf(" Y\n");
-	ft_printf("\n");
 	map->i = 0;
 	while (map->arr[map->i] != NULL)
 	{
@@ -133,9 +125,9 @@ void	checkmap(t_map *map)
 			error_handler(NULL, MAP, ERROR, map->arr);
 		if (ft_strlen(map->arr[0]) != ft_strlen(map->arr[map->i]))
 			error_handler(NULL, MAP, ERROR, map->arr);
-		ft_printf("  %s %i\n", map->arr[map->i], map->i);
 		map->i++;
 	}
+	print_map(map);
 	mapparser(map);
 	testing(map);
 }
