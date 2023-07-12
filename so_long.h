@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/11 22:51:11 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/12 21:11:57 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ typedef struct s_bt
 # define DOWN 65364
 # define RIGHT 65363
 
+//so_long.c
+
+//print a linked list's values
+void	print_dll(t_bt *bt);
+
 /*************************************/
 /*           exit_handling           */
 /*************************************/
@@ -136,17 +141,25 @@ void	print_map(t_map *map);
 void	getpos(t_map *map, char c);
 
 //logic handler
-void	cases(t_map *map);
+void	cases(t_map *map, t_bt *bt);
 
 //testing
 void	testing(t_map *map);
 
-//
-
-//print a linked list's values
-void	print_dll(t_bt *bt);
+/*************************************/
+/*           backtracking            */
+/*************************************/
 
 //initialize doubly linked list
 t_bt	*mkdll(int move);
+
+//add values to the doubly linked list
+void	addmv(t_bt **bt, int move);
+
+//free the memory of a doubly linked list
+void	free_dll(t_bt *bt);
+
+//trace steps back untill point of intrest
+void	backtracer(t_bt *bt, t_map *map);
 
 #endif

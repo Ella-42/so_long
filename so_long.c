@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:34 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/10 19:31:32 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:13:59 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,3 +33,25 @@ int	main(int ac, char **av)
 	//mlx_key_hook(mlx.win, key_event, &mlx);
 	//mlx_hook(mlx.win, 17, 0L, close_window, &mlx);
 	//mlx_loop(mlx.ptr);
+
+//print a linked list's values
+void	print_dll(t_bt *bt)
+{
+	t_bt	*curr;
+
+	ft_printf("\ncurrent saved moves:");
+	curr = bt;
+	while (curr != NULL)
+	{
+		if (curr->mv == UP)
+			ft_printf(" UP");
+		else if (curr->mv == LEFT)
+			ft_printf(" LEFT");
+		else if (curr->mv == DOWN)
+			ft_printf(" DOWN");
+		else if (curr->mv == RIGHT)
+			ft_printf(" RIGHT");
+		curr = curr->next;
+	}
+	ft_printf("\n");
+}

@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:29:24 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/11 21:27:40 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/12 23:23:21 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	getpos(t_map *map, char c)
 //case handling
 void	case_handler(t_map *map, int arrow)
 {
-	map->arr[map->y][map->x] = '2';
 	if (arrow == UP)
 	{
 		map->y--;
@@ -80,11 +79,12 @@ void	case_handler(t_map *map, int arrow)
 }
 
 //logic handler
-void	cases(t_map *map)
+void	cases(t_map *map, t_bt *bt)
 {
 	map->prev = 0;
 	while (map->coll > 0 || map->ext > 0)
 	{
+		map->arr[map->y][map->x] = '2';
 		if (map->arr[map->y - 1][map->x] != '1' && map->prev != DOWN
 			&& map->arr[map->y - 1][map->x] != '2')
 			case_handler(map, UP);
@@ -98,20 +98,24 @@ void	cases(t_map *map)
 			&& map->arr[map->y][map->x + 1] != '2')
 			case_handler(map, RIGHT);
 		else
-			ft_printf("test\n");
-		mkdll(map->prev);
+			backtracer(bt, map);
+		addmv(&bt, map->prev);
+		print_dll(bt);
 		print_map(map);
 		ft_printf("c:%c, y:%i, x:%i\n", map->arr[map->y][map->x],
 			map->y, map->x);
 	}
+	free_dll(bt);
 }
 
 //testing
 void	testing(t_map *map)
 {
+	t_bt	*bt;
+
+	bt = NULL;
 	getpos(map, 'P');
 	ft_printf("c:%c, y:%i, x:%i\n", map->arr[map->y][map->x],
 		map->y, map->x);
-	cases(map);
-	print_map(map);
+	cases(map, bt);
 }
