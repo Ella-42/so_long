@@ -6,31 +6,11 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:29:24 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/12 23:23:21 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/13 18:22:26 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-
-//testing
-void	print_map(t_map *map)
-{
-	int	x;
-
-	ft_printf("\n");
-	ft_printf("X ");
-	x = 0;
-	while (x <= map->count)
-		ft_printf("%i", x++);
-	ft_printf(" Y\n\n");
-	map->i = 0;
-	while (map->arr[map->i] != NULL)
-	{
-		ft_printf("  %s %i\n", map->arr[map->i], map->i);
-		map->i++;
-	}
-	ft_printf("\n");
-}
 
 //fetch the position of a character
 void	getpos(t_map *map, char c)
@@ -50,61 +30,69 @@ void	getpos(t_map *map, char c)
 }
 
 //case handling
-void	case_handler(t_map *map, int arrow)
+void	case_handler(t_map *map, t_bt **bt, int arrow)
 {
+	ft_printf("\n\n----------START OF CASE_HANDLER----------\n\n");
 	if (arrow == UP)
 	{
 		map->y--;
+		ft_printf("\nGOING UP\n");
 		map->prev = UP;
 	}
 	else if (arrow == LEFT)
 	{
 		map->x--;
+		ft_printf("\nGOING LEFT\n");
 		map->prev = LEFT;
 	}
 	else if (arrow == DOWN)
 	{
 		map->y++;
+		ft_printf("\nGOING DOWN\n");
 		map->prev = DOWN;
 	}
 	else if (arrow == RIGHT)
 	{
 		map->x++;
+		ft_printf("\nGOING RIGHT\n");
 		map->prev = RIGHT;
 	}
 	if (map->arr[map->y][map->x] == 'C')
 		map->coll -= 1;
 	else if (map->arr[map->y][map->x] == 'E')
 		map->ext -= 1;
+	addmv(bt, map->prev);
+	print_dll(*bt);
+	print_map(map);
+	ft_printf("c:%c, y:%i, x:%i\n", map->arr[map->y][map->x],
+		map->y, map->x);
+	ft_printf("\n\n----------START OF CASE_HANDLER----------\n\n");
 }
 
 //logic handler
 void	cases(t_map *map, t_bt *bt)
 {
 	map->prev = 0;
+	addmv(&bt, map->prev);
 	while (map->coll > 0 || map->ext > 0)
 	{
 		map->arr[map->y][map->x] = '2';
-		if (map->arr[map->y - 1][map->x] != '1' && map->prev != DOWN
+		if (map->arr[map->y - 1][map->x] != '1' && bt->mv != DOWN
 			&& map->arr[map->y - 1][map->x] != '2')
-			case_handler(map, UP);
-		else if (map->arr[map->y][map->x - 1] != '1' && map->prev != RIGHT
+			case_handler(map, &bt, UP);
+		else if (map->arr[map->y][map->x - 1] != '1' && bt->mv != RIGHT
 			&& map->arr[map->y][map->x - 1] != '2')
-			case_handler(map, LEFT);
-		else if (map->arr[map->y + 1][map->x] != '1' && map->prev != UP
+			case_handler(map, &bt, LEFT);
+		else if (map->arr[map->y + 1][map->x] != '1' && bt->mv != UP
 			&& map->arr[map->y + 1][map->x] != '2')
-			case_handler(map, DOWN);
-		else if (map->arr[map->y][map->x + 1] != '1' && map->prev != LEFT
+			case_handler(map, &bt, DOWN);
+		else if (map->arr[map->y][map->x + 1] != '1' && bt->mv != LEFT
 			&& map->arr[map->y][map->x + 1] != '2')
-			case_handler(map, RIGHT);
+			case_handler(map, &bt, RIGHT);
 		else
-			backtracer(bt, map);
-		addmv(&bt, map->prev);
-		print_dll(bt);
-		print_map(map);
-		ft_printf("c:%c, y:%i, x:%i\n", map->arr[map->y][map->x],
-			map->y, map->x);
+			backtracer(&bt, map);
 	}
+	ft_printf("\n\nYOU FUCKING DID IT, YOU CRAZY SON OF A BITCH!!!\n\n");
 	free_dll(bt);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/12 21:11:57 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:57:56 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,9 @@ typedef struct s_bt
 //print a linked list's values
 void	print_dll(t_bt *bt);
 
+//testing
+void	print_map(t_map *map);
+
 /*************************************/
 /*           exit_handling           */
 /*************************************/
@@ -134,9 +137,6 @@ void	checkmap(t_map *map);
 /*               algo                */
 /*************************************/
 
-//testing
-void	print_map(t_map *map);
-
 //fetch the position of a character
 void	getpos(t_map *map, char c);
 
@@ -160,6 +160,6 @@ void	addmv(t_bt **bt, int move);
 void	free_dll(t_bt *bt);
 
 //trace steps back untill point of intrest
-void	backtracer(t_bt *bt, t_map *map);
+void	backtracer(t_bt **bt, t_map *map);
 
 #endif

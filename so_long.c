@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:34 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/12 22:13:59 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:57:27 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,26 @@ void	print_dll(t_bt *bt)
 		else if (curr->mv == RIGHT)
 			ft_printf(" RIGHT");
 		curr = curr->next;
+	}
+	ft_printf("\n");
+}
+
+//testing
+void	print_map(t_map *map)
+{
+	int	x;
+
+	ft_printf("\n");
+	ft_printf("X ");
+	x = 0;
+	while (x <= map->count)
+		ft_printf("%i", x++);
+	ft_printf(" Y\n\n");
+	map->i = 0;
+	while (map->arr[map->i] != NULL)
+	{
+		ft_printf("  %s %i\n", map->arr[map->i], map->i);
+		map->i++;
 	}
 	ft_printf("\n");
 }
