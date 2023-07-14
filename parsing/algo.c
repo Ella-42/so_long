@@ -6,16 +6,15 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:29:24 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/13 18:22:26 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:36:23 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
 //fetch the position of a character
-void	getpos(t_map *map, char c)
+void	getcpos(t_map *map, char c)
 {
-	ft_printf("\n");
 	map->y = 0;
 	while (map->arr[map->y++] != NULL)
 	{
@@ -29,32 +28,27 @@ void	getpos(t_map *map, char c)
 	}
 }
 
-//case handling
+//move to a given direction and store it in the DLL
 void	case_handler(t_map *map, t_bt **bt, int arrow)
 {
-	ft_printf("\n\n----------START OF CASE_HANDLER----------\n\n");
 	if (arrow == UP)
 	{
 		map->y--;
-		ft_printf("\nGOING UP\n");
 		map->prev = UP;
 	}
 	else if (arrow == LEFT)
 	{
 		map->x--;
-		ft_printf("\nGOING LEFT\n");
 		map->prev = LEFT;
 	}
 	else if (arrow == DOWN)
 	{
 		map->y++;
-		ft_printf("\nGOING DOWN\n");
 		map->prev = DOWN;
 	}
 	else if (arrow == RIGHT)
 	{
 		map->x++;
-		ft_printf("\nGOING RIGHT\n");
 		map->prev = RIGHT;
 	}
 	if (map->arr[map->y][map->x] == 'C')
@@ -62,16 +56,40 @@ void	case_handler(t_map *map, t_bt **bt, int arrow)
 	else if (map->arr[map->y][map->x] == 'E')
 		map->ext -= 1;
 	addmv(bt, map->prev);
-	print_dll(*bt);
-	print_map(map);
-	ft_printf("c:%c, y:%i, x:%i\n", map->arr[map->y][map->x],
-		map->y, map->x);
-	ft_printf("\n\n----------START OF CASE_HANDLER----------\n\n");
 }
 
-//logic handler
-void	cases(t_map *map, t_bt *bt)
+//trace steps back untill point of intrest
+void	backtracer(t_bt **bt, t_map *m)
 {
+	t_bt	*curr;
+
+	curr = *bt;
+	while ((m->arr[m->y - 1][m->x] == '1' || m->arr[m->y - 1][m->x] == '2') &&
+		(m->arr[m->y][m->x - 1] == '1' || m->arr[m->y][m->x - 1] == '2') &&
+		(m->arr[m->y + 1][m->x] == '1' || m->arr[m->y + 1][m->x] == '2') &&
+		(m->arr[m->y][m->x + 1] == '1' || m->arr[m->y][m->x + 1] == '2'))
+	{
+		if (curr->mv == UP)
+			m->y++;
+		else if (curr->mv == LEFT)
+			m->x++;
+		else if (curr->mv == DOWN)
+			m->y--;
+		else if (curr->mv == RIGHT)
+			m->x--;
+		if (curr->next != NULL)
+			curr = curr->next;
+	}
+	*bt = curr;
+}
+
+//master algorithm
+void	bt_algo(t_map *map)
+{
+	t_bt	*bt;
+
+	bt = NULL;
+	getcpos(map, 'P');
 	map->prev = 0;
 	addmv(&bt, map->prev);
 	while (map->coll > 0 || map->ext > 0)
@@ -92,18 +110,5 @@ void	cases(t_map *map, t_bt *bt)
 		else
 			backtracer(&bt, map);
 	}
-	ft_printf("\n\nYOU FUCKING DID IT, YOU CRAZY SON OF A BITCH!!!\n\n");
 	free_dll(bt);
-}
-
-//testing
-void	testing(t_map *map)
-{
-	t_bt	*bt;
-
-	bt = NULL;
-	getpos(map, 'P');
-	ft_printf("c:%c, y:%i, x:%i\n", map->arr[map->y][map->x],
-		map->y, map->x);
-	cases(map, bt);
 }

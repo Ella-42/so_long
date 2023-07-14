@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 19:02:21 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/13 18:22:34 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:36:40 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,47 +55,4 @@ void	addmv(t_bt **bt, int move)
 		(*bt)->prev = new;
 		*bt = new;
 	}
-}
-
-//trace steps back untill point of intrest
-void	backtracer(t_bt **bt, t_map *m)
-{
-	t_bt	*curr;
-
-	ft_printf("\n\n----------START OF BACKTRACER----------\n\n");
-	curr = *bt;
-	while ((m->arr[m->y - 1][m->x] == '1' || m->arr[m->y - 1][m->x] == '2') &&
-		(m->arr[m->y][m->x - 1] == '1' || m->arr[m->y][m->x - 1] == '2') &&
-		(m->arr[m->y + 1][m->x] == '1' || m->arr[m->y + 1][m->x] == '2') &&
-		(m->arr[m->y][m->x + 1] == '1' || m->arr[m->y][m->x + 1] == '2'))
-	{
-		if (curr->mv == UP)
-		{
-			ft_printf("\nGOING DOWN\n");
-			m->y++;
-		}
-		else if (curr->mv == LEFT)
-		{
-			ft_printf("\nGOING RIGHT\n");
-			m->x++;
-		}
-		else if (curr->mv == DOWN)
-		{
-			ft_printf("\nGOING UP\n");
-			m->y--;
-		}
-		else if (curr->mv == RIGHT)
-		{
-			ft_printf("\nGOING LEFT\n");
-			m->x--;
-		}
-		if (curr->next != NULL)
-			curr = curr->next;
-		print_dll(curr);
-		print_map(m);
-		ft_printf("c:%c, y:%i, x:%i\n", m->arr[m->y][m->x],
-			m->y, m->x);
-	}
-	*bt = curr;
-	ft_printf("\n\n----------END OF BACKTRACER----------\n\n");
 }

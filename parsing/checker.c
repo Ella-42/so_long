@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:35:04 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/11 19:02:59 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:44:29 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //check if argument is of the correct filetype
 void	check_filetype(t_map *map)
 {
-	map->conditional = true;
+	map->conditional = false;
 	map->i = 0;
 	while (map->str[map->i])
 	{
@@ -24,7 +24,7 @@ void	check_filetype(t_map *map)
 			map->conditional = true;
 		map->i++;
 	}
-	if (map->conditional == false)
+	if (map->conditional == true)
 	{
 		map->suffix = ft_split(map->str, '.');
 		if (ft_strncmp(map->suffix[1], "ber", 3)
@@ -110,9 +110,11 @@ void	mapparser(t_map *map)
 		error_handler(NULL, MAP, ERROR, map->arr);
 }
 
-//print the map
+//check if map is valid
 void	checkmap(t_map *map)
 {
+	check_filetype(map);
+	map->arr = maptoarr(map);
 	map->j = 0;
 	while (map->arr[0][map->j] && map->arr[map->count - 1][map->j])
 		if (map->arr[0][map->j] != '1'
@@ -127,7 +129,6 @@ void	checkmap(t_map *map)
 			error_handler(NULL, MAP, ERROR, map->arr);
 		map->i++;
 	}
-	print_map(map);
 	mapparser(map);
-	testing(map);
+	bt_algo(map);
 }

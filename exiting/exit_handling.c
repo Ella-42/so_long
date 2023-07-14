@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:28:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/12 21:10:34 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:36:20 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	error_handler(t_mlx *mlx, int type, int status, char **arr)
 //defines what happens when certain keys are pressed
 int	key_event(int keycode, void *mlx)
 {
-	ft_printf("Keycode: %i\n", keycode);
 	if (keycode == ESCAPE)
 		close_window(mlx, SUCCESS);
 	return (0);

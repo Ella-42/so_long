@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/13 14:57:56 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:54:10 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,17 @@ typedef struct s_bt
 # define DOWN 65364
 # define RIGHT 65363
 
-//so_long.c
+/*************************************/
+/*              so_long              */
+/*************************************/
+
+//parse map, handle errors, convert into interactive 2d video game
+int		main(int ac, char **av);
 
 //print a linked list's values
 void	print_dll(t_bt *bt);
 
-//testing
+//print the map
 void	print_map(t_map *map);
 
 /*************************************/
@@ -130,7 +135,10 @@ char	**maparr(t_map *map);
 //convert map to array
 char	**maptoarr(t_map *map);
 
-//print the map
+//parse the elements in the map and check if they are correct
+void	mapparser(t_map *map);
+
+//check if map is valid
 void	checkmap(t_map *map);
 
 /*************************************/
@@ -138,13 +146,16 @@ void	checkmap(t_map *map);
 /*************************************/
 
 //fetch the position of a character
-void	getpos(t_map *map, char c);
+void	getcpos(t_map *map, char c);
 
-//logic handler
-void	cases(t_map *map, t_bt *bt);
+//move to a given direction and store it in the DLL
+void	case_handler(t_map *map, t_bt **bt, int arrow);
 
-//testing
-void	testing(t_map *map);
+//trace steps back untill point of intrest
+void	backtracer(t_bt **bt, t_map *map);
+
+//master algorithm
+void	bt_algo(t_map *map);
 
 /*************************************/
 /*           backtracking            */
@@ -158,8 +169,5 @@ void	addmv(t_bt **bt, int move);
 
 //free the memory of a doubly linked list
 void	free_dll(t_bt *bt);
-
-//trace steps back untill point of intrest
-void	backtracer(t_bt **bt, t_map *map);
 
 #endif

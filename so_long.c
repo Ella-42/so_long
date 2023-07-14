@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:34 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/13 14:57:27 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/14 15:44:31 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		error_handler(NULL, AC, ERROR, NULL);
 	map.str = av[1];
-	check_filetype(&map);
-	map.arr = maptoarr(&map);
 	checkmap(&map);
 	free_arr(map.arr);
+	ft_printf("Reached end with success\n");
 	return (0);
 }
 	//t_mlx	mlx;
@@ -56,7 +55,7 @@ void	print_dll(t_bt *bt)
 	ft_printf("\n");
 }
 
-//testing
+//print the map
 void	print_map(t_map *map)
 {
 	int	x;
