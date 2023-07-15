@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:34 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/14 15:44:31 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/15 00:41:43 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int ac, char **av)
 	//mlx_loop(mlx.ptr);
 
 //print a linked list's values
-void	print_dll(t_bt *bt)
+void	print_sll(t_bt *bt)
 {
 	t_bt	*curr;
 

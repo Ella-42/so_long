@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/14 14:54:10 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/15 01:27:42 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,14 @@ typedef struct s_bt
 {
 	int			mv;
 	struct s_bt	*next;
-	struct s_bt	*prev;
 }				t_bt;
+
+////error handler data structure
+//typedef struct s_eh
+//{
+	//int		type;
+	//int		status;
+//}			t_eh;
 
 //macros
 # define SUCCESS 0
@@ -76,7 +82,9 @@ typedef struct s_bt
 # define ERROR 1
 # define FALSE 1
 # define CASE1 1
+# define BT 1
 # define CASE2 2
+# define CURR 2
 # define CASE3 3
 # define CASE4 4
 # define MALLOC 12
@@ -104,7 +112,7 @@ typedef struct s_bt
 int		main(int ac, char **av);
 
 //print a linked list's values
-void	print_dll(t_bt *bt);
+void	print_sll(t_bt *bt);
 
 //print the map
 void	print_map(t_map *map);
@@ -116,14 +124,14 @@ void	print_map(t_map *map);
 //exit in a clean way
 int		close_window(t_mlx *mlx, int status);
 
-//error handler
+//handles errors
 int		error_handler(t_mlx *mlx, int type, int status, char **arr);
 
 //defines what happens when certain keys are pressed
 int		key_event(int keycode, void *mlx);
 
 /*************************************/
-/*              checker              */
+/*           map_checking            */
 /*************************************/
 
 //check if argument is of the correct filetype
@@ -142,13 +150,13 @@ void	mapparser(t_map *map);
 void	checkmap(t_map *map);
 
 /*************************************/
-/*               algo                */
+/*       backtracing_algorithm       */
 /*************************************/
 
 //fetch the position of a character
 void	getcpos(t_map *map, char c);
 
-//move to a given direction and store it in the DLL
+//move to a given direction and store it in the singly linked list
 void	case_handler(t_map *map, t_bt **bt, int arrow);
 
 //trace steps back untill point of intrest
@@ -158,16 +166,16 @@ void	backtracer(t_bt **bt, t_map *map);
 void	bt_algo(t_map *map);
 
 /*************************************/
-/*           backtracking            */
+/*        singly_linked_list         */
 /*************************************/
 
-//initialize doubly linked list
-t_bt	*mkdll(int move);
+//initialize singly linked list
+t_bt	*mksll(int move);
 
-//add values to the doubly linked list
+//add values to the singly linked list
 void	addmv(t_bt **bt, int move);
 
-//free the memory of a doubly linked list
-void	free_dll(t_bt *bt);
+//free the memory of a singly linked list
+void	free_sll(t_bt *bt, t_bt **curr, int structure);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:28:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/14 14:36:20 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/15 01:28:16 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	close_window(t_mlx *mlx, int status)
 	return (0);
 }
 
-//error handler
+//handles errors
 int	error_handler(t_mlx *mlx, int type, int status, char **arr)
 {
 	if (type == AC || type == BER)

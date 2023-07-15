@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algo.c                                             :+:      :+:    :+:   */
+/*   backtracing_algorithm.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:29:24 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/14 14:36:23 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/15 01:27:32 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	getcpos(t_map *map, char c)
 	}
 }
 
-//move to a given direction and store it in the DLL
+//move to a given direction and store it in the singly linked list
 void	case_handler(t_map *map, t_bt **bt, int arrow)
 {
 	if (arrow == UP)
@@ -78,7 +78,12 @@ void	backtracer(t_bt **bt, t_map *m)
 		else if (curr->mv == RIGHT)
 			m->x--;
 		if (curr->next != NULL)
-			curr = curr->next;
+			free_sll(*bt, &curr, CURR);
+		else
+		{
+			free(curr);
+			error_handler(NULL, MAP, ERROR, m->arr);
+		}
 	}
 	*bt = curr;
 }
@@ -110,5 +115,5 @@ void	bt_algo(t_map *map)
 		else
 			backtracer(&bt, map);
 	}
-	free_dll(bt);
+	free_sll(bt, NULL, BT);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   map_checking.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:35:04 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/14 15:44:29 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/15 01:49:35 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,28 +86,33 @@ char	**maptoarr(t_map *map)
 }
 
 //parse the elements in the map and check if they are correct
-void	mapparser(t_map *map)
+void	mapparser(t_map *m)
 {
-	map->play = 0;
-	map->coll = 0;
-	map->ext = 0;
-	map->i = 0;
-	while (map->arr[map->i] != NULL)
+	m->play = 0;
+	m->coll = 0;
+	m->ext = 0;
+	m->i = 0;
+	while (m->arr[m->i] != NULL)
 	{
-		map->j = 0;
-		while (map->arr[map->i][map->j])
+		m->j = 0;
+		while (m->arr[m->i][m->j] != '\0')
 		{
-			if (map->arr[map->i][map->j] == 'P')
-				map->play += 1;
-			if (map->arr[map->i][map->j] == 'C')
-				map->coll += 1;
-			if (map->arr[map->i][map->j++] == 'E')
-				map->ext += 1;
+			if (m->arr[m->i][m->j] == '0' || m->arr[m->i][m->j] == '1')
+				;
+			else if (m->arr[m->i][m->j] == 'P')
+				m->play += 1;
+			else if (m->arr[m->i][m->j] == 'C')
+				m->coll += 1;
+			else if (m->arr[m->i][m->j] == 'E')
+				m->ext += 1;
+			else
+				error_handler(NULL, MAP, ERROR, m->arr);
+			m->j++;
 		}
-		map->i++;
+		m->i++;
 	}
-	if (map->play != 1 || map->coll < 1 || map->ext != 1)
-		error_handler(NULL, MAP, ERROR, map->arr);
+	if (m->play != 1 || m->coll < 1 || m->ext != 1)
+		error_handler(NULL, MAP, ERROR, m->arr);
 }
 
 //check if map is valid

@@ -1,34 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   backtracing.c                                      :+:      :+:    :+:   */
+/*   singly_linked_list.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 19:02:21 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/14 14:36:40 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/15 01:27:57 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-//free the memory of a doubly linked list
-void	free_dll(t_bt *bt)
+//free the memory of a singly linked list
+void	free_sll(t_bt *bt, t_bt **current, int structure)
 {
 	t_bt	*curr;
 	t_bt	*next;
 
-	curr = bt;
-	while (curr != NULL)
+	if (structure == BT)
 	{
-		next = curr->next;
-		free(curr);
-		curr = next;
+		curr = bt;
+		while (curr != NULL)
+		{
+			next = curr->next;
+			free(curr);
+			curr = next;
+		}
+	}
+	else if (structure == CURR)
+	{
+		next = (*current)->next;
+		free(*current);
+		*current = next;
 	}
 }
 
-//initialize doubly linked list
-t_bt	*mkdll(int move)
+//initialize singly linked list
+t_bt	*mksll(int move)
 {
 	t_bt	*bt;
 
@@ -36,23 +45,21 @@ t_bt	*mkdll(int move)
 	if (!bt)
 		error_handler(NULL, MALLOC, ERROR, NULL);
 	bt->mv = move;
-	bt->prev = NULL;
 	bt->next = NULL;
 	return (bt);
 }
 
-//add values to the doubly linked list
+//add values to the singly linked list
 void	addmv(t_bt **bt, int move)
 {
 	t_bt	*new;
 
-	new = mkdll(move);
+	new = mksll(move);
 	if (*bt == NULL)
 		*bt = new;
 	else
 	{
 		new->next = *bt;
-		(*bt)->prev = new;
 		*bt = new;
 	}
 }
