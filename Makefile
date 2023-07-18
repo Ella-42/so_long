@@ -6,7 +6,7 @@
 #    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 20:49:34 by lpeeters          #+#    #+#              #
-#    Updated: 2023/07/15 02:39:51 by lpeeters         ###   ########.fr        #
+#    Updated: 2023/07/18 21:53:56 by lpeeters         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRCS = ${shell find . -name "*.c" -not -path "*lib*" -a -not -path "*mlx*"}
 HEADER = ${shell find . -name "*.h" -not -path "*lib*" -a -not -path "*mlx*"}
 
 #find other makefiles
-MKFL = ${shell find . -mindepth 2 -name "Makefile" -o -name "makefile"}
+MKFL = ${shell find . -mindepth 2 \( -name "Makefile" -o -name "makefile" \) -not -path "*test*"}
 
 #find library files
 LIBS = ${shell find . -name "*.a"}

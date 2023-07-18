@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:35:04 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/15 01:49:35 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:34:25 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ char	**maptoarr(t_map *map)
 	}
 	close(map->fd);
 	map->arr[map->i] = NULL;
+	if (map->arr[0][0] == '\0')
+		error_handler(NULL, MAP, ERROR, map->arr);
 	if (map->conditional == false || ft_strlen(map->arr[0]) < 3)
 		error_handler(NULL, MALLOC, ERROR, map->arr);
 	return (map->arr);
