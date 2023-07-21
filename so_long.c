@@ -6,32 +6,61 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:34 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/15 00:41:43 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/21 23:25:15 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+//testing
+void	test(t_mlx *mlx, t_map *map)
+{
+	int		y;
+	int		x;
+	int		i;
+	int		j;
+
+	y = 0;
+	x = 0;
+	i = 0;
+	print_map(map);
+	while (map->arr[i] != NULL)
+	{
+		j = 0;
+		while (map->arr[i][j] != '\0')
+		{
+			mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, y, x);
+			x += 20;
+			j++;
+		}
+		y += 20;
+		i++;
+	}
+}
+
 //parse map, handle errors, convert into interactive 2d video game
 int	main(int ac, char **av)
 {
 	t_map	map;
+	t_mlx	mlx;
 
 	if (ac != 2)
 		error_handler(NULL, AC, ERROR, NULL);
 	map.str = av[1];
 	checkmap(&map);
+	mlx.ptr = mlx_init();
+	mlx.win = mlx_new_window(mlx.ptr, 1920, 1080, "so_long");
+	mlx_key_hook(mlx.win, key_event, &mlx);
+	mlx_hook(mlx.win, 17, 0L, close_window, &mlx);
+	mlx.y = 0;
+	mlx.x = mlx.y;
+	mlx.img = mlx_xpm_file_to_image(mlx.ptr, "sprites/grass_20x20.xpm",
+			&mlx.y, &mlx.x);
+	test(&mlx, &map);
 	free_arr(map.arr);
-	ft_printf("Reached end with success\n");
+	mlx_loop(mlx.ptr);
 	return (0);
 }
-	//t_mlx	mlx;
-
-	//mlx.ptr = mlx_init();
-	//mlx.win = mlx_new_window(mlx.ptr, 1920, 1080, "so_long");
-	//mlx_key_hook(mlx.win, key_event, &mlx);
-	//mlx_hook(mlx.win, 17, 0L, close_window, &mlx);
-	//mlx_loop(mlx.ptr);
 
 //print a linked list's values
 void	print_sll(t_bt *bt)

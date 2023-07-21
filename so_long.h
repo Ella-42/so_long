@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/15 01:27:42 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/21 22:52:51 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ typedef struct s_mlx
 {
 	void	*ptr;
 	void	*win;
+	void	*img;
+	int		y;
+	int		x;
 }			t_mlx;
 
 //map data structure
@@ -67,13 +70,6 @@ typedef struct s_bt
 	int			mv;
 	struct s_bt	*next;
 }				t_bt;
-
-////error handler data structure
-//typedef struct s_eh
-//{
-	//int		type;
-	//int		status;
-//}			t_eh;
 
 //macros
 # define SUCCESS 0
