@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/21 22:52:51 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/25 22:52:51 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_mlx
 typedef struct s_map
 {
 	char	**arr;
+	char	**cpy;
 	char	**suffix;
 	char	*str;
 	char	*line;

@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:34 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/24 16:48:41 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/25 23:24:24 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ void	test(t_mlx *mlx, t_map *map)
 		x = 0;
 		while (map->arr[y][x] != '\0')
 		{
-			mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img,
-				(x * 20), (y * 20));
+			if (map->arr[y][x] == '0')
+				mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img,
+					(x * 20), (y * 20));
 			x++;
 		}
 		y++;

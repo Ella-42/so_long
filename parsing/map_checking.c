@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:35:04 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/18 22:34:25 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/25 23:24:12 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,8 @@ void	checkmap(t_map *map)
 		map->i++;
 	}
 	mapparser(map);
+	map->cpy = cpy_arr(map->arr);
 	bt_algo(map);
+	free_arr(map->arr);
+	map->arr = cpy_arr(map->cpy);
 }

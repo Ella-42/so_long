@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 13:47:49 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/06/23 13:59:45 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/25 23:21:07 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char	**cpy_arr(char **arr);
 
 //ft_printf
 
@@ -116,6 +117,7 @@ char	*ft_get_next_line(char *line);
 char	*get_next_line(int fd);
 char	*ft_gstrchr(char *s, int c);
 char	*ft_gstrjoin(char *line, char *buff);
+
 //libft
 
 size_t	ft_strlen(const char *str);
