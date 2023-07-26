@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/25 22:52:51 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:36:04 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ typedef struct s_map
 	char	*str;
 	char	*line;
 	bool	conditional;
-	int		count;
-	int		coll;
-	int		ext;
-	int		play;
 	int		fd;
+	int		count;
 	int		i;
 	int		j;
+	int		coll;
+	int		play;
+	int		ext;
 	int		x;
 	int		y;
 	int		prev;
@@ -80,8 +80,8 @@ typedef struct s_bt
 # define FALSE 1
 # define CASE1 1
 # define BT 1
-# define CASE2 2
 # define CURR 2
+# define CASE2 2
 # define CASE3 3
 # define CASE4 4
 # define MALLOC 12
@@ -108,12 +108,6 @@ typedef struct s_bt
 //parse map, handle errors, convert into interactive 2d video game
 int		main(int ac, char **av);
 
-//print a linked list's values
-void	print_sll(t_bt *bt);
-
-//print the map
-void	print_map(t_map *map);
-
 /*************************************/
 /*           exit_handling           */
 /*************************************/
@@ -122,10 +116,23 @@ void	print_map(t_map *map);
 int		close_window(t_mlx *mlx, int status);
 
 //handles errors
-int		error_handler(t_mlx *mlx, int type, int status, char **arr);
+void	error_handler(t_mlx *mlx, int type, int status, t_map *map);
 
 //defines what happens when certain keys are pressed
 int		key_event(int keycode, void *mlx);
+
+/*************************************/
+/*           map_to_window           */
+/*************************************/
+
+//fetch the correct sprite and send it to the window
+void	img_handler(t_mlx *mlx, t_map *map, char c);
+
+//print the map to the graphical window
+void	map2win(t_mlx *mlx, t_map *map);
+
+//print the map
+void	print_map(t_map *map);
 
 /*************************************/
 /*           map_checking            */
@@ -174,5 +181,8 @@ void	addmv(t_bt **bt, int move);
 
 //free the memory of a singly linked list
 void	free_sll(t_bt *bt, t_bt **curr, int structure);
+
+//print a linked list's values
+void	print_sll(t_bt *bt);
 
 #endif

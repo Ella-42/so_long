@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 19:02:21 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/15 01:27:57 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:21:48 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,26 @@ void	addmv(t_bt **bt, int move)
 		new->next = *bt;
 		*bt = new;
 	}
+}
+
+//print a linked list's values
+void	print_sll(t_bt *bt)
+{
+	t_bt	*curr;
+
+	ft_printf("\ncurrent saved moves:");
+	curr = bt;
+	while (curr != NULL)
+	{
+		if (curr->mv == UP)
+			ft_printf(" UP");
+		else if (curr->mv == LEFT)
+			ft_printf(" LEFT");
+		else if (curr->mv == DOWN)
+			ft_printf(" DOWN");
+		else if (curr->mv == RIGHT)
+			ft_printf(" RIGHT");
+		curr = curr->next;
+	}
+	ft_printf("\n");
 }

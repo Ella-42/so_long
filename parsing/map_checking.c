@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:35:04 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/25 23:24:12 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:35:37 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 //check if argument is of the correct filetype
 void	check_filetype(t_map *map)
 {
-	map->conditional = false;
-	map->i = 0;
 	while (map->str[map->i])
 	{
 		if (map->str[map->i] == '.'
@@ -33,7 +31,7 @@ void	check_filetype(t_map *map)
 		free_arr(map->suffix);
 	}
 	if (map->conditional == false)
-		error_handler(NULL, BER, ERROR, NULL);
+		error_handler(NULL, BER, ERROR, map);
 }
 
 //calculate the length of a map and allocate memory for it
@@ -41,9 +39,8 @@ char	**maparr(t_map *map)
 {
 	map->fd = open(map->str, O_RDONLY);
 	if (map->fd < 0)
-		error_handler(NULL, OPEN, ERROR, NULL);
+		error_handler(NULL, OPEN, ERROR, map);
 	map->line = get_next_line(map->fd);
-	map->count = 0;
 	while (map->line != NULL)
 	{
 		free(map->line);
@@ -51,11 +48,11 @@ char	**maparr(t_map *map)
 		map->count++;
 	}
 	if (map->count < 3)
-		error_handler(NULL, MAP, ERROR, NULL);
+		error_handler(NULL, MAP, ERROR, map);
 	close(map->fd);
 	map->arr = (char **)malloc(sizeof(char *) * (map->count + 1));
 	if (map->arr == NULL)
-		error_handler(NULL, MALLOC, ERROR, NULL);
+		error_handler(NULL, MALLOC, ERROR, map);
 	return (map->arr);
 }
 
@@ -65,7 +62,7 @@ char	**maptoarr(t_map *map)
 	map->arr = maparr(map);
 	map->fd = open(map->str, O_RDONLY);
 	if (map->fd < 0)
-		error_handler(NULL, OPEN, ERROR, map->arr);
+		error_handler(NULL, OPEN, ERROR, map);
 	map->line = get_next_line(map->fd);
 	map->conditional = true;
 	map->i = 0;
@@ -81,18 +78,15 @@ char	**maptoarr(t_map *map)
 	close(map->fd);
 	map->arr[map->i] = NULL;
 	if (map->arr[0][0] == '\0')
-		error_handler(NULL, MAP, ERROR, map->arr);
+		error_handler(NULL, MAP, ERROR, map);
 	if (map->conditional == false || ft_strlen(map->arr[0]) < 3)
-		error_handler(NULL, MALLOC, ERROR, map->arr);
+		error_handler(NULL, MALLOC, ERROR, map);
 	return (map->arr);
 }
 
 //parse the elements in the map and check if they are correct
 void	mapparser(t_map *m)
 {
-	m->play = 0;
-	m->coll = 0;
-	m->ext = 0;
 	m->i = 0;
 	while (m->arr[m->i] != NULL)
 	{
@@ -101,20 +95,20 @@ void	mapparser(t_map *m)
 		{
 			if (m->arr[m->i][m->j] == '0' || m->arr[m->i][m->j] == '1')
 				;
-			else if (m->arr[m->i][m->j] == 'P')
-				m->play += 1;
 			else if (m->arr[m->i][m->j] == 'C')
 				m->coll += 1;
+			else if (m->arr[m->i][m->j] == 'P')
+				m->play += 1;
 			else if (m->arr[m->i][m->j] == 'E')
 				m->ext += 1;
 			else
-				error_handler(NULL, MAP, ERROR, m->arr);
+				error_handler(NULL, MAP, ERROR, m);
 			m->j++;
 		}
 		m->i++;
 	}
 	if (m->play != 1 || m->coll < 1 || m->ext != 1)
-		error_handler(NULL, MAP, ERROR, m->arr);
+		error_handler(NULL, MAP, ERROR, m);
 }
 
 //check if map is valid
@@ -122,23 +116,27 @@ void	checkmap(t_map *map)
 {
 	check_filetype(map);
 	map->arr = maptoarr(map);
-	map->j = 0;
 	while (map->arr[0][map->j] && map->arr[map->count - 1][map->j])
 		if (map->arr[0][map->j] != '1'
 			|| map->arr[map->count - 1][map->j++] != '1')
-			error_handler(NULL, MAP, ERROR, map->arr);
+			error_handler(NULL, MAP, ERROR, map);
 	map->i = 0;
 	while (map->arr[map->i] != NULL)
 	{
 		if (map->arr[map->i][0] != '1' || map->arr[map->i][map->j - 1] != '1')
-			error_handler(NULL, MAP, ERROR, map->arr);
+			error_handler(NULL, MAP, ERROR, map);
 		if (ft_strlen(map->arr[0]) != ft_strlen(map->arr[map->i]))
-			error_handler(NULL, MAP, ERROR, map->arr);
+			error_handler(NULL, MAP, ERROR, map);
 		map->i++;
 	}
 	mapparser(map);
 	map->cpy = cpy_arr(map->arr);
+	if (map->cpy == NULL)
+		error_handler(NULL, MALLOC, ERROR, map);
 	bt_algo(map);
 	free_arr(map->arr);
 	map->arr = cpy_arr(map->cpy);
+	if (map->arr == NULL)
+		error_handler(NULL, MALLOC, ERROR, map);
+	free_arr(map->cpy);
 }

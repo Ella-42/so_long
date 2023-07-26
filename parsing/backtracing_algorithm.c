@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:29:24 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/15 01:27:32 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/26 21:27:05 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 //fetch the position of a character
 void	getcpos(t_map *map, char c)
 {
-	map->y = 0;
 	while (map->arr[map->y++] != NULL)
 	{
 		map->x = 0;
@@ -82,7 +81,7 @@ void	backtracer(t_bt **bt, t_map *m)
 		else
 		{
 			free(curr);
-			error_handler(NULL, MAP, ERROR, m->arr);
+			error_handler(NULL, MAP, ERROR, m);
 		}
 	}
 	*bt = curr;
@@ -95,7 +94,6 @@ void	bt_algo(t_map *map)
 
 	bt = NULL;
 	getcpos(map, 'P');
-	map->prev = 0;
 	addmv(&bt, map->prev);
 	while (map->coll > 0 || map->ext > 0)
 	{
