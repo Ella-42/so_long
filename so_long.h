@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/26 22:36:04 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:11:16 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,9 @@ typedef struct s_bt
 /*              so_long              */
 /*************************************/
 
+//initialize the map strucuture's values
+void	map_init(t_map *map, char *file);
+
 //parse map, handle errors, convert into interactive 2d video game
 int		main(int ac, char **av);
 
@@ -173,14 +176,14 @@ void	bt_algo(t_map *map);
 /*        singly_linked_list         */
 /*************************************/
 
+//free the memory of a singly linked list
+void	free_sll(t_bt *bt, t_bt **curr, int structure);
+
 //initialize singly linked list
 t_bt	*mksll(int move);
 
 //add values to the singly linked list
 void	addmv(t_bt **bt, int move);
-
-//free the memory of a singly linked list
-void	free_sll(t_bt *bt, t_bt **curr, int structure);
 
 //print a linked list's values
 void	print_sll(t_bt *bt);
