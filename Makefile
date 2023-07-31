@@ -6,7 +6,7 @@
 #    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 20:49:34 by lpeeters          #+#    #+#              #
-#    Updated: 2023/07/26 21:26:43 by lpeeters         ###   ########.fr        #
+#    Updated: 2023/07/31 14:47:39 by lpeeters         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CFLAGS = -Wall -Wextra -Werror
 MLXFLAGS = -L /usr/lib -l Xext -l X11 -l m -l z
 
 #redirect output to /dev/null to silence it
-OUT = > /dev/null 2> /dev/null
+OUT = > /dev/null
 
 #find sources
 SRCS = ${shell find . -name "*.c" -not -path "*lib*" -a -not -path "*mlx*"}

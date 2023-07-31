@@ -6,7 +6,7 @@
 #    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 13:58:55 by lpeeters          #+#    #+#              #
-#    Updated: 2023/07/25 23:22:59 by lpeeters         ###   ########.fr        #
+#    Updated: 2023/07/31 14:41:15 by lpeeters         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,12 +92,12 @@ HEADER = libft.h
 MK_DIR = mkdir -p ${@D}
 
 #make object files
-${OBJ_DIR}%.o: %.c
+${OBJ_DIR}%.o: %.c ${SRCS} ${HEADER}
 	@${MK_DIR}
 	@${CC} ${CFLAGS} -c $< -o $@
 
 #make project into library file
-${NAME}: ${OBJS} ${HEADER}
+${NAME}: ${OBJS}
 	@${MK_DIR}
 	@${LIBC} ${NAME} ${OBJS} ${HEADER}
 
