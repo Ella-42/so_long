@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:28:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/26 22:35:54 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:33:32 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 //exit in a clean way
 int	close_window(t_mlx *mlx, int status)
 {
+	mlx_destroy_image(mlx->ptr, mlx->gimg);
+	mlx_destroy_image(mlx->ptr, mlx->wimg);
+	mlx_destroy_image(mlx->ptr, mlx->pimg);
+	mlx_destroy_image(mlx->ptr, mlx->cimg);
+	mlx_destroy_image(mlx->ptr, mlx->eimg);
 	mlx_destroy_window(mlx->ptr, mlx->win);
 	mlx_destroy_display(mlx->ptr);
 	free(mlx->ptr);

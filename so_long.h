@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/31 15:11:16 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/31 20:20:42 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,14 @@ typedef struct s_mlx
 {
 	void	*ptr;
 	void	*win;
-	void	*img;
+	void	*gimg;
+	void	*wimg;
+	void	*cimg;
+	void	*pimg;
+	void	*eimg;
 	int		y;
 	int		x;
+	int		n;
 }			t_mlx;
 
 //map data structure
@@ -127,6 +132,9 @@ int		key_event(int keycode, void *mlx);
 /*************************************/
 /*           map_to_window           */
 /*************************************/
+
+//load the xpm files to image pointers
+void	img_init(t_mlx *mlx);
 
 //fetch the correct sprite and send it to the window
 void	img_handler(t_mlx *mlx, t_map *map, char c);

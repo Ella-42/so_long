@@ -6,40 +6,52 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 20:44:18 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/26 22:22:56 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/07/31 20:20:27 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
+//load the xpm files to image pointers
+void	img_init(t_mlx *mlx)
+{
+	mlx->n = 0;
+	mlx->gimg = mlx_xpm_file_to_image(mlx->ptr, "sprites/grass_20x20.xpm",
+			&mlx->n, &mlx->n);
+	mlx->wimg = mlx_xpm_file_to_image(mlx->ptr,
+			"sprites/rock_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+	mlx->cimg = mlx_xpm_file_to_image(mlx->ptr,
+			"sprites/pokeball_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+	mlx->pimg = mlx_xpm_file_to_image(mlx->ptr,
+			"sprites/May_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+	mlx->eimg = mlx_xpm_file_to_image(mlx->ptr,
+			"sprites/tall_grass_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+}
+
 //fetch the correct sprite and send it to the window
 void	img_handler(t_mlx *mlx, t_map *map, char c)
 {
-	mlx->y = 0;
-	mlx->x = mlx->y;
 	if (c == '0')
-		mlx->img = mlx_xpm_file_to_image(mlx->ptr, "sprites/grass_20x20.xpm",
-				&mlx->y, &mlx->x);
+		mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->gimg,
+			(map->x * 20), (map->y * 20));
 	else if (c == '1')
-		mlx->img = mlx_xpm_file_to_image(mlx->ptr,
-				"sprites/rock_on_grass_20x20.xpm", &mlx->y, &mlx->x);
+		mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->wimg,
+			(map->x * 20), (map->y * 20));
 	else if (c == 'C')
-		mlx->img = mlx_xpm_file_to_image(mlx->ptr,
-				"sprites/pokeball_on_grass_20x20.xpm", &mlx->y, &mlx->x);
+		mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->cimg,
+			(map->x * 20), (map->y * 20));
 	else if (c == 'P')
-		mlx->img = mlx_xpm_file_to_image(mlx->ptr,
-				"sprites/May_on_grass_20x20.xpm", &mlx->y, &mlx->x);
+		mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->pimg,
+			(map->x * 20), (map->y * 20));
 	else if (c == 'E')
-		mlx->img = mlx_xpm_file_to_image(mlx->ptr,
-				"sprites/tall_grass_on_grass_20x20.xpm", &mlx->y, &mlx->x);
-	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img,
-		(map->x * 20), (map->y * 20));
-	mlx_destroy_image(mlx->ptr, mlx->img);
+		mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->eimg,
+			(map->x * 20), (map->y * 20));
 }
 
 //print the map to the graphical window
 void	map2win(t_mlx *mlx, t_map *map)
 {
+	img_init(mlx);
 	map->y = 0;
 	while (map->arr[map->y] != NULL)
 	{
