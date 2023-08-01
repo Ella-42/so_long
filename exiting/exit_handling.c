@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:28:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/01 19:58:26 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/01 21:35:46 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ int	key_event(int keycode, t_mlx *mlx)
 	if (keycode == ESCAPE)
 		close_window(mlx, SUCCESS);
 	if (keycode == UP || keycode == W)
-		move_test(mlx, mlx->map, UP);
+		move(mlx, mlx->map, UP);
 	if (keycode == DOWN || keycode == S)
-		move_test(mlx, mlx->map, DOWN);
+		move(mlx, mlx->map, DOWN);
 	if (keycode == LEFT || keycode == A)
-		move_test(mlx, mlx->map, LEFT);
+		move(mlx, mlx->map, LEFT);
 	if (keycode == RIGHT || keycode == D)
-		move_test(mlx, mlx->map, RIGHT);
+		move(mlx, mlx->map, RIGHT);
 	return (0);
 }

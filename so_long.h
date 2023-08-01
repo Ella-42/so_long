@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/01 20:05:29 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/01 21:42:00 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@
 //open
 # include <fcntl.h>
 
-//free, exit
+//close
+# include <unistd.h>
+
+//malloc, free, exit
 # include <stdlib.h>
 
 //perror
@@ -117,9 +120,6 @@ void	map_init(t_map *map, char *file);
 //parse map, handle errors, convert into interactive 2d video game
 int		main(int ac, char **av);
 
-//test
-void	move_test(t_mlx *mlx, t_map *map, int keycode);
-
 /*************************************/
 /*           exit_handling           */
 /*************************************/
@@ -132,6 +132,19 @@ void	error_handler(t_mlx *mlx, int type, int status, t_map *map);
 
 //defines what happens when certain keys are pressed
 int		key_event(int keycode, t_mlx *mlx);
+
+/*************************************/
+/*           game_handling           */
+/*************************************/
+
+//fetch the position of a character
+int		checkc(t_map *map);
+
+//update an image to the window
+void	upd_win(t_mlx *mlx, t_map *map, char c);
+
+//move the player
+void	move(t_mlx *mlx, t_map *map, int keycode);
 
 /*************************************/
 /*           map_to_window           */
