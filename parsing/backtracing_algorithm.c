@@ -6,25 +6,27 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:29:24 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/26 21:27:05 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/01 20:05:58 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
 //fetch the position of a character
-void	getcpos(t_map *map, char c)
+int	getcpos(t_map *map, char c)
 {
+	map->y = 0;
 	while (map->arr[map->y++] != NULL)
 	{
 		map->x = 0;
 		while (map->arr[map->y][map->x] != '\0')
 		{
 			if (map->arr[map->y][map->x] == c)
-				return ;
+				return (1);
 			map->x++;
 		}
 	}
+	return (0);
 }
 
 //move to a given direction and store it in the singly linked list

@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/07/31 20:20:42 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/01 20:05:29 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,6 @@
 //perror
 # include <stdio.h>
 
-//mlx data structure
-typedef struct s_mlx
-{
-	void	*ptr;
-	void	*win;
-	void	*gimg;
-	void	*wimg;
-	void	*cimg;
-	void	*pimg;
-	void	*eimg;
-	int		y;
-	int		x;
-	int		n;
-}			t_mlx;
-
 //map data structure
 typedef struct s_map
 {
@@ -69,6 +54,22 @@ typedef struct s_map
 	int		y;
 	int		prev;
 }			t_map;
+
+//mlx data structure
+typedef struct s_mlx
+{
+	void	*ptr;
+	void	*win;
+	void	*gimg;
+	void	*wimg;
+	void	*cimg;
+	void	*pimg;
+	void	*eimg;
+	int		y;
+	int		x;
+	int		n;
+	t_map	*map;
+}			t_mlx;
 
 //backtracing data structure
 typedef struct s_bt
@@ -116,6 +117,9 @@ void	map_init(t_map *map, char *file);
 //parse map, handle errors, convert into interactive 2d video game
 int		main(int ac, char **av);
 
+//test
+void	move_test(t_mlx *mlx, t_map *map, int keycode);
+
 /*************************************/
 /*           exit_handling           */
 /*************************************/
@@ -127,7 +131,7 @@ int		close_window(t_mlx *mlx, int status);
 void	error_handler(t_mlx *mlx, int type, int status, t_map *map);
 
 //defines what happens when certain keys are pressed
-int		key_event(int keycode, void *mlx);
+int		key_event(int keycode, t_mlx *mlx);
 
 /*************************************/
 /*           map_to_window           */
@@ -169,7 +173,7 @@ void	checkmap(t_map *map);
 /*************************************/
 
 //fetch the position of a character
-void	getcpos(t_map *map, char c);
+int		getcpos(t_map *map, char c);
 
 //move to a given direction and store it in the singly linked list
 void	case_handler(t_map *map, t_bt **bt, int arrow);
