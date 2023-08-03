@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/01 21:42:00 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/03 21:58:38 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct s_map
 	int		x;
 	int		y;
 	int		prev;
+	int		mx;
+	int		my;
 }			t_map;
 
 //mlx data structure
@@ -68,6 +70,9 @@ typedef struct s_mlx
 	void	*cimg;
 	void	*pimg;
 	void	*eimg;
+	void	*pcimg;
+	void	*peimg;
+	void	*oimg;
 	int		y;
 	int		x;
 	int		n;
@@ -121,7 +126,7 @@ void	map_init(t_map *map, char *file);
 int		main(int ac, char **av);
 
 /*************************************/
-/*           exit_handling           */
+/*              handling             */
 /*************************************/
 
 //exit in a clean way
@@ -154,9 +159,9 @@ void	move(t_mlx *mlx, t_map *map, int keycode);
 void	img_init(t_mlx *mlx);
 
 //fetch the correct sprite and send it to the window
-void	img_handler(t_mlx *mlx, t_map *map, char c);
+void	img_handler(t_mlx *mlx, t_map *map);
 
-//print the map to the graphical window
+//print the map to the graphical window around the player
 void	map2win(t_mlx *mlx, t_map *map);
 
 //print the map
@@ -186,7 +191,7 @@ void	checkmap(t_map *map);
 /*************************************/
 
 //fetch the position of a character
-int		getcpos(t_map *map, char c);
+void	getcpos(t_map *map, char c);
 
 //move to a given direction and store it in the singly linked list
 void	case_handler(t_map *map, t_bt **bt, int arrow);

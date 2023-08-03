@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:34 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/01 21:39:40 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/03 21:43:06 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ int	main(int ac, char **av)
 	map_init(&map, av[1]);
 	checkmap(&map);
 	mlx.ptr = mlx_init();
-	mlx.win = mlx_new_window(mlx.ptr, map.j * 20, map.i * 20, "Not_Pokemon");
+	mlx.win = mlx_new_window(mlx.ptr, 300, 180, "Not_Pokemon");
 	mlx_key_hook(mlx.win, key_event, &mlx);
 	mlx_hook(mlx.win, 17, 0L, close_window, &mlx);
+	img_init(&mlx);
 	map2win(&mlx, &map);
 	mlx.map = &map;
-	getcpos(&map, 'P');
 	map.count = 0;
 	mlx_loop(mlx.ptr);
 }

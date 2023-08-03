@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_handling.c                                    :+:      :+:    :+:   */
+/*   handling.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:28:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/01 21:35:46 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/03 20:57:16 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int	close_window(t_mlx *mlx, int status)
 	mlx_destroy_image(mlx->ptr, mlx->pimg);
 	mlx_destroy_image(mlx->ptr, mlx->cimg);
 	mlx_destroy_image(mlx->ptr, mlx->eimg);
+	mlx_destroy_image(mlx->ptr, mlx->pcimg);
+	mlx_destroy_image(mlx->ptr, mlx->peimg);
+	mlx_destroy_image(mlx->ptr, mlx->oimg);
 	mlx_destroy_window(mlx->ptr, mlx->win);
 	mlx_destroy_display(mlx->ptr);
 	free(mlx->ptr);

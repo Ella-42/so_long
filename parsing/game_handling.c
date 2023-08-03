@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 21:39:23 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/01 21:42:03 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/03 22:02:58 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,11 @@ int	checkc(t_map *map)
 	return (1);
 }
 
-//update an image to the window
-void	upd_win(t_mlx *mlx, t_map *map, char c)
-{
-	if (c == '0')
-	{
-		map->arr[map->y][map->x] = '0';
-		mlx_put_image_to_window(mlx->ptr, mlx->win,
-			mlx->gimg, map->x * 20, map->y * 20);
-	}
-	else if (c == 'P')
-	{
-		map->arr[map->y][map->x] = 'P';
-		mlx_put_image_to_window(mlx->ptr, mlx->win,
-			mlx->pimg, map->x * 20, map->y * 20);
-	}
-}
-
 //move the player
 void	move(t_mlx *mlx, t_map *map, int keycode)
 {
 	if (map->arr[map->y][map->x] != 'E')
-		upd_win(mlx, map, '0');
+		map->arr[map->y][map->x] = '0';
 	if (keycode == UP && map->arr[map->y - 1][map->x] != '1')
 		map->y--;
 	else if (keycode == DOWN && map->arr[map->y + 1][map->x] != '1')
@@ -69,8 +52,10 @@ void	move(t_mlx *mlx, t_map *map, int keycode)
 		if (checkc(map))
 			close_window(mlx, SUCCESS);
 		else
-			ft_printf("You are not yet ready for battle\n");
+			ft_printf("You are not yet ready for battle...\n");
 	}
 	if (map->arr[map->y][map->x] != 'E')
-		upd_win(mlx, map, 'P');
+		map->arr[map->y][map->x] = 'P';
+	print_map(map);
+	map2win(mlx, map);
 }
