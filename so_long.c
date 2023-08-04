@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:34 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/03 21:43:06 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/04 22:50:16 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ int	main(int ac, char **av)
 	map2win(&mlx, &map);
 	mlx.map = &map;
 	map.count = 0;
+	print_legend();
 	mlx_loop(mlx.ptr);
 }

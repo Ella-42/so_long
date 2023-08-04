@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 20:44:18 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/03 21:50:31 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/04 18:09:10 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ void	img_handler(t_mlx *mlx, t_map *map)
 		mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->pimg, mlx->x, mlx->y);
 	else if (map->arr[map->my][map->mx] == 'E')
 		mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->eimg, mlx->x, mlx->y);
+	else if (map->arr[map->my][map->mx] == '2')
+		mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->pcimg, mlx->x, mlx->y);
+	else if (map->arr[map->my][map->mx] == '3')
+		mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->peimg, mlx->x, mlx->y);
 }
 
 //print the map to the graphical window around the player

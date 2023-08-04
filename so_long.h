@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/03 21:58:38 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/04 22:28:45 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_map
 	int		coll;
 	int		play;
 	int		ext;
+	int		ccoll;
 	int		x;
 	int		y;
 	int		prev;
@@ -105,11 +106,13 @@ typedef struct s_bt
 # define OPEN 77
 
 //key macros
+# define SPACEBAR 32
 # define ESCAPE 65307
 # define W 119
 # define A 97
 # define S 115
 # define D 100
+# define M 109
 # define UP 65362
 # define LEFT 65361
 # define DOWN 65364
@@ -137,35 +140,6 @@ void	error_handler(t_mlx *mlx, int type, int status, t_map *map);
 
 //defines what happens when certain keys are pressed
 int		key_event(int keycode, t_mlx *mlx);
-
-/*************************************/
-/*           game_handling           */
-/*************************************/
-
-//fetch the position of a character
-int		checkc(t_map *map);
-
-//update an image to the window
-void	upd_win(t_mlx *mlx, t_map *map, char c);
-
-//move the player
-void	move(t_mlx *mlx, t_map *map, int keycode);
-
-/*************************************/
-/*           map_to_window           */
-/*************************************/
-
-//load the xpm files to image pointers
-void	img_init(t_mlx *mlx);
-
-//fetch the correct sprite and send it to the window
-void	img_handler(t_mlx *mlx, t_map *map);
-
-//print the map to the graphical window around the player
-void	map2win(t_mlx *mlx, t_map *map);
-
-//print the map
-void	print_map(t_map *map);
 
 /*************************************/
 /*           map_checking            */
@@ -217,5 +191,40 @@ void	addmv(t_bt **bt, int move);
 
 //print a linked list's values
 void	print_sll(t_bt *bt);
+
+/*************************************/
+/*           map_to_window           */
+/*************************************/
+
+//load the xpm files to image pointers
+void	img_init(t_mlx *mlx);
+
+//fetch the correct sprite and send it to the window
+void	img_handler(t_mlx *mlx, t_map *map);
+
+//print the map to the graphical window around the player
+void	map2win(t_mlx *mlx, t_map *map);
+
+//print the map
+void	print_map(t_map *map);
+
+/*************************************/
+/*           game_handling           */
+/*************************************/
+
+//fetch the position of a character
+int		checkc(t_map *map);
+
+//print out all the keymappings
+void	print_legend(void);
+
+//update an image to the window
+void	upd_win(t_mlx *mlx, t_map *map, char c);
+
+//count how many steps were taken and display them
+void	step(t_map *map);
+
+//move the player
+void	move(t_mlx *mlx, t_map *map, int keycode);
 
 #endif

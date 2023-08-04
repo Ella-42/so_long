@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:28:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/03 20:57:16 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/04 22:28:48 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,9 @@ int	key_event(int keycode, t_mlx *mlx)
 		move(mlx, mlx->map, LEFT);
 	if (keycode == RIGHT || keycode == D)
 		move(mlx, mlx->map, RIGHT);
+	if (keycode == M)
+		print_map(mlx->map);
+	if (keycode == SPACEBAR)
+		print_legend();
 	return (0);
 }

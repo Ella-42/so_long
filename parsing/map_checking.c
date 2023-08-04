@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:35:04 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/01 21:36:04 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/04 19:11:11 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	mapparser(t_map *m)
 	}
 	if (m->play != 1 || m->coll < 1 || m->ext != 1)
 		error_handler(NULL, MAP, ERROR, m);
+	m->ccoll = m->coll;
 }
 
 //check if map is valid

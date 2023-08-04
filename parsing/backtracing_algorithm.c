@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 16:29:24 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/03 22:06:05 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/04 18:11:11 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,9 @@ void	getcpos(t_map *map, char c)
 		{
 			if (map->arr[map->y][map->x] == c)
 				return ;
-			map->x++;
-		}
-		map->y++;
-	}
-	map->y = 0;
-	while (map->arr[map->y] != NULL)
-	{
-		map->x = 0;
-		while (map->arr[map->y][map->x] != '\0')
-		{
-			if (map->arr[map->y][map->x] == 'E')
+			else if (map->arr[map->y][map->x] == '2')
+				return ;
+			else if (map->arr[map->y][map->x] == '3')
 				return ;
 			map->x++;
 		}
