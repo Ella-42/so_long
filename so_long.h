@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:59 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/04 22:28:45 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/07 21:59:20 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ typedef struct s_map
 	int		i;
 	int		j;
 	int		coll;
+	int		ccoll;
+	int		cccoll;
 	int		play;
 	int		ext;
-	int		ccoll;
 	int		x;
 	int		y;
 	int		prev;
@@ -95,6 +96,8 @@ typedef struct s_bt
 # define FALSE 1
 # define CASE1 1
 # define BT 1
+# define STEP 1
+# define PRINT_LEGEND 2
 # define CURR 2
 # define CASE2 2
 # define CASE3 3
@@ -102,7 +105,7 @@ typedef struct s_bt
 # define MALLOC 12
 # define MAP -22
 # define AC 22
-# define BER 22
+# define BER 222
 # define OPEN 77
 
 //key macros
@@ -124,6 +127,9 @@ typedef struct s_bt
 
 //initialize the map strucuture's values
 void	map_init(t_map *map, char *file);
+
+//load the xpm files to image pointers
+void	img_init(t_mlx *mlx);
 
 //parse map, handle errors, convert into interactive 2d video game
 int		main(int ac, char **av);
@@ -196,9 +202,6 @@ void	print_sll(t_bt *bt);
 /*           map_to_window           */
 /*************************************/
 
-//load the xpm files to image pointers
-void	img_init(t_mlx *mlx);
-
 //fetch the correct sprite and send it to the window
 void	img_handler(t_mlx *mlx, t_map *map);
 
@@ -212,17 +215,17 @@ void	print_map(t_map *map);
 /*           game_handling           */
 /*************************************/
 
+//ending handler
+void	ending(t_map *map);
+
 //fetch the position of a character
 int		checkc(t_map *map);
-
-//print out all the keymappings
-void	print_legend(void);
 
 //update an image to the window
 void	upd_win(t_mlx *mlx, t_map *map, char c);
 
 //count how many steps were taken and display them
-void	step(t_map *map);
+void	step_or_print_legend(t_map *map, int function);
 
 //move the player
 void	move(t_mlx *mlx, t_map *map, int keycode);

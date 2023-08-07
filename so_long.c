@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:34 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/04 22:50:16 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/07 22:01:39 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,28 @@ void	map_init(t_map *map, char *file)
 	map->prev = 0;
 }
 
+//load the xpm files to image pointers
+void	img_init(t_mlx *mlx)
+{
+	mlx->n = 0;
+	mlx->gimg = mlx_xpm_file_to_image(mlx->ptr, "sprites/grass_20x20.xpm",
+			&mlx->n, &mlx->n);
+	mlx->wimg = mlx_xpm_file_to_image(mlx->ptr,
+			"sprites/rock_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+	mlx->cimg = mlx_xpm_file_to_image(mlx->ptr,
+			"sprites/pokeball_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+	mlx->pimg = mlx_xpm_file_to_image(mlx->ptr,
+			"sprites/May_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+	mlx->eimg = mlx_xpm_file_to_image(mlx->ptr,
+			"sprites/tall_grass_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+	mlx->pcimg = mlx_xpm_file_to_image(mlx->ptr,
+			"sprites/May_with_pokeball_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+	mlx->peimg = mlx_xpm_file_to_image(mlx->ptr,
+			"sprites/May_in_tall_grass_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+	mlx->oimg = mlx_xpm_file_to_image(mlx->ptr,
+			"sprites/water_20x20.xpm", &mlx->n, &mlx->n);
+}
+
 //parse map, handle errors, convert into interactive 2d video game
 int	main(int ac, char **av)
 {
@@ -48,6 +70,7 @@ int	main(int ac, char **av)
 	map2win(&mlx, &map);
 	mlx.map = &map;
 	map.count = 0;
-	print_legend();
+	ft_printf("\n");
+	step_or_print_legend(NULL, PRINT_LEGEND);
 	mlx_loop(mlx.ptr);
 }

@@ -6,7 +6,7 @@
 #    By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 20:49:34 by lpeeters          #+#    #+#              #
-#    Updated: 2023/07/31 14:47:39 by lpeeters         ###   ########.fr        #
+#    Updated: 2023/08/07 16:19:37 by lpeeters         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,16 +87,22 @@ VALGRIND = valgrind --leak-check=full --show-leak-kinds=all -s ./so_long
 #automatically test the maps for memory leaks
 val: all
 	reset ; \
+	echo "\n==========MINIMAL WIDTH==========\n" ; ${VALGRIND} maps/minimal_width.ber ; \
+	echo "\n==========MINIMAL HEIGHT==========\n" ; ${VALGRIND} maps/minimal_height.ber ; \
 	echo "\n==========ALGORITHM TEST EASY==========\n" ; ${VALGRIND} maps/algorithm_test_easy.ber ; \
 	echo "\n==========ALGORITHM TEST MEDIUM==========\n" ; ${VALGRIND} maps/algorithm_test_medium.ber ; \
 	echo "\n==========ALGORITHM TEST HARD==========\n" ; ${VALGRIND} maps/algorithm_test_hard.ber ; \
 	echo "\n==========ALGORITHM TEST ADVANCED==========\n" ; ${VALGRIND} maps/algorithm_test_advanced.ber ; \
-	echo "\n==========SMALL==========\n" ; ${VALGRIND} maps/small.ber ; \
 	echo "\n==========MAYHEM==========\n" ; ${VALGRIND} maps/mayhem.ber ; \
+	echo "\n==========SMALL==========\n" ; ${VALGRIND} maps/small.ber ; \
 	echo "\n==========BIG==========\n" ; ${VALGRIND} maps/big.ber ; \
+	echo "\n==========15x9==========\n" ; ${VALGRIND} maps/15x9_example.ber ; \
+	echo "\n==========25x25==========\n" ; ${VALGRIND} maps/25x25_example.ber ; \
+	echo "\n==========HIDDEN==========\n" ; ${VALGRIND} maps/.ber ; \
 	echo "\n==========INVALID SMALL==========\n" ; ${VALGRIND} maps/invalid_small.ber ; \
 	echo "\n==========INVALID BIG==========\n" ; ${VALGRIND} maps/invalid_big.ber ; \
 	echo "\n==========INVALID EMPTY==========\n" ; ${VALGRIND} maps/invalid_empty.ber ; \
+	echo "\n==========INVALID EMPTY LINE==========\n" ; ${VALGRIND} maps/invalid_empty_line.ber ; \
 	echo "\n==========INVALID MISSING ITEMS==========\n" ; ${VALGRIND} maps/invalid_missing_items.ber ; \
 	echo "\n==========INVALID TOO MANY ITEMS==========\n" ; ${VALGRIND} maps/invalid_too_many_items.ber ; \
 	echo "\n==========INVALID CHARACTERS==========\n" ; ${VALGRIND} maps/invalid_chars.ber ; \
@@ -105,21 +111,28 @@ val: all
 	echo "\n==========INVALID EXTENSION NONE==========\n" ; ${VALGRIND} maps/invalid_extension_none ; \
 	echo "\n==========INVALID EXTENSION DOT==========\n" ; ${VALGRIND} maps/invalid_extension_dot. ; \
 	echo "\n==========INVALID EXTENSION DOUBLE DOTS==========\n" ; ${VALGRIND} maps/invalid_extension.double.dots ; \
-	echo "\n==========INVALID EXTENSION FILETYPE==========\n" ; ${VALGRIND} maps/invalid_extension_filetype.txt
+	echo "\n==========INVALID EXTENSION FILETYPE==========\n" ; ${VALGRIND} maps/invalid_extension_filetype.txt ; \
+	echo "\n==========INVALID HIDDEN FILE==========\n" ; ${VALGRIND} maps/.invalid_hidden_file.ber
 
 #automatically test the maps
 test: all
 	reset ; \
+	echo "\n==========MINIMAL WIDTH==========\n" ; ./so_long maps/minimal_width.ber ; \
+	echo "\n==========MINIMAL HEIGHT==========\n" ; ./so_long maps/minimal_height.ber ; \
 	echo "\n==========ALGORITHM TEST EASY==========\n" ; ./so_long maps/algorithm_test_easy.ber ; \
 	echo "\n==========ALGORITHM TEST MEDIUM==========\n" ; ./so_long maps/algorithm_test_medium.ber ; \
 	echo "\n==========ALGORITHM TEST HARD==========\n" ; ./so_long maps/algorithm_test_hard.ber ; \
 	echo "\n==========ALGORITHM TEST ADVANCED==========\n" ; ./so_long maps/algorithm_test_advanced.ber ; \
-	echo "\n==========SMALL==========\n" ; ./so_long maps/small.ber ; \
 	echo "\n==========MAYHEM==========\n" ; ./so_long maps/mayhem.ber ; \
+	echo "\n==========SMALL==========\n" ; ./so_long maps/small.ber ; \
 	echo "\n==========BIG==========\n" ; ./so_long maps/big.ber ; \
+	echo "\n==========15x9==========\n" ; ./so_long maps/15x9_example.ber ; \
+	echo "\n==========25x25==========\n" ; ./so_long maps/25x25_example.ber ; \
+	echo "\n==========HIDDEN==========\n" ; ./so_long maps/.ber ; \
 	echo "\n==========INVALID SMALL==========\n" ; ./so_long maps/invalid_small.ber ; \
 	echo "\n==========INVALID BIG==========\n" ; ./so_long maps/invalid_big.ber ; \
 	echo "\n==========INVALID EMPTY==========\n" ; ./so_long maps/invalid_empty.ber ; \
+	echo "\n==========INVALID EMPTY LINE==========\n" ; ./so_long maps/invalid_empty_line.ber ; \
 	echo "\n==========INVALID MISSING ITEMS==========\n" ; ./so_long maps/invalid_missing_items.ber ; \
 	echo "\n==========INVALID TOO MANY ITEMS==========\n" ; ./so_long maps/invalid_too_many_items.ber ; \
 	echo "\n==========INVALID CHARACTERS==========\n" ; ./so_long maps/invalid_chars.ber ; \
@@ -128,7 +141,8 @@ test: all
 	echo "\n==========INVALID EXTENSION NONE==========\n" ; ./so_long maps/invalid_extension_none ; \
 	echo "\n==========INVALID EXTENSION DOT==========\n" ; ./so_long maps/invalid_extension_dot. ; \
 	echo "\n==========INVALID EXTENSION DOUBLE DOTS==========\n" ; ./so_long maps/invalid_extension.double.dots ; \
-	echo "\n==========INVALID EXTENSION FILETYPE==========\n" ; ./so_long maps/invalid_extension_filetype.txt
+	echo "\n==========INVALID EXTENSION FILETYPE==========\n" ; ./so_long maps/invalid_extension_filetype.txt ; \
+	echo "\n==========INVALID HIDDEN FILE==========\n" ; ./so_long maps/.invalid_hidden_file.ber
 
 #targets
 .PHONY: all clean fclean re MK val test

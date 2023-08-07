@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 13:28:50 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/04 22:28:48 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/07 22:02:55 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,13 @@ int	close_window(t_mlx *mlx, int status)
 void	error_handler(t_mlx *mlx, int type, int status, t_map *map)
 {
 	ft_printf("Error\n");
-	if (type == AC || type == BER)
+	if (type == AC)
+	{
+		ft_printf("Invalid number of arguments\n");
+		ft_printf("Expected usage: ./so_long map.ber\n");
+		exit(EXIT_FAILURE);
+	}
+	else if (type == BER)
 		ft_printf("Invalid argument\n");
 	else if (type == MAP)
 		ft_printf("Invalid map\n");
@@ -74,6 +80,6 @@ int	key_event(int keycode, t_mlx *mlx)
 	if (keycode == M)
 		print_map(mlx->map);
 	if (keycode == SPACEBAR)
-		print_legend();
+		step_or_print_legend(NULL, PRINT_LEGEND);
 	return (0);
 }
