@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 21:39:23 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/07 21:59:13 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:07:36 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	upd_win(t_mlx *mlx, t_map *map, char c)
 		if (map->ccoll == 1)
 			ft_printf("You need to collect %i more Pokeball\n\n", map->ccoll);
 		else if (map->ccoll == 0)
-			ft_printf("Let's do this!\n\n");
+			ft_printf("You are now ready for battle, let's do this!\n\n");
 		else
 			ft_printf("You need to collect %i more Pokeballs\n\n", map->ccoll);
 	}
@@ -89,7 +89,8 @@ void	upd_win(t_mlx *mlx, t_map *map, char c)
 		if (checkc(map))
 		{
 			ending(map);
-			ft_printf("Beat map with %i steps taken, good job!\n\n", map->count);
+			ft_printf("You beat the map with %i steps taken, good job!\n\n",
+				map->count);
 			close_window(mlx, SUCCESS);
 		}
 		else

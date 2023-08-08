@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:34 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/07 22:01:39 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:03:08 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,9 @@ int	main(int ac, char **av)
 	map.count = 0;
 	ft_printf("\n");
 	step_or_print_legend(NULL, PRINT_LEGEND);
+	if (map.cccoll == 1)
+		ft_printf("You have got %i Pokeball to collect\n\n", map.cccoll);
+	else
+		ft_printf("You have got %i Pokeballs to collect\n\n", map.cccoll);
 	mlx_loop(mlx.ptr);
 }
