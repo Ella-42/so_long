@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 20:44:18 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/07 19:20:25 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:09:09 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	map2win(t_mlx *mlx, t_map *map)
 	getcpos(map, 'P');
 	map->my = map->y - 4;
 	mlx->y = 0;
-	while (mlx->y <= 160)
+	while (mlx->y <= 1600)
 	{
 		map->mx = map->x - 7;
 		mlx->x = 0;
-		while (mlx->x <= 280)
+		while (mlx->x <= 2800)
 		{
 			if (map->my < 0 || map->mx < 0 || map->my >= map->i
 				|| map->mx >= map->j)
@@ -49,10 +49,10 @@ void	map2win(t_mlx *mlx, t_map *map)
 					mlx->oimg, mlx->x, mlx->y);
 			else
 				img_handler(mlx, map);
-			mlx->x += 20;
+			mlx->x += 200;
 			map->mx++;
 		}
-		mlx->y += 20;
+		mlx->y += 200;
 		map->my++;
 	}
 }

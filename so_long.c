@@ -6,7 +6,7 @@
 /*   By: lpeeters <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:24:34 by lpeeters          #+#    #+#             */
-/*   Updated: 2023/08/08 16:03:08 by lpeeters         ###   ########.fr       */
+/*   Updated: 2023/08/23 14:57:42 by lpeeters         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,22 @@ void	map_init(t_map *map, char *file)
 void	img_init(t_mlx *mlx)
 {
 	mlx->n = 0;
-	mlx->gimg = mlx_xpm_file_to_image(mlx->ptr, "sprites/grass_20x20.xpm",
+	mlx->gimg = mlx_xpm_file_to_image(mlx->ptr, "sprites/grass_200x200.xpm",
 			&mlx->n, &mlx->n);
 	mlx->wimg = mlx_xpm_file_to_image(mlx->ptr,
-			"sprites/rock_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+			"sprites/rock_on_grass_200x200.xpm", &mlx->n, &mlx->n);
 	mlx->cimg = mlx_xpm_file_to_image(mlx->ptr,
-			"sprites/pokeball_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+			"sprites/pokeball_on_grass_200x200.xpm", &mlx->n, &mlx->n);
 	mlx->pimg = mlx_xpm_file_to_image(mlx->ptr,
-			"sprites/May_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+			"sprites/May_on_grass_200x200.xpm", &mlx->n, &mlx->n);
 	mlx->eimg = mlx_xpm_file_to_image(mlx->ptr,
-			"sprites/tall_grass_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+			"sprites/tall_grass_on_grass_200x200.xpm", &mlx->n, &mlx->n);
 	mlx->pcimg = mlx_xpm_file_to_image(mlx->ptr,
-			"sprites/May_with_pokeball_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+			"sprites/May_with_pokeball_on_grass_200x200.xpm", &mlx->n, &mlx->n);
 	mlx->peimg = mlx_xpm_file_to_image(mlx->ptr,
-			"sprites/May_in_tall_grass_on_grass_20x20.xpm", &mlx->n, &mlx->n);
+			"sprites/May_in_tall_grass_on_grass_200x200.xpm", &mlx->n, &mlx->n);
 	mlx->oimg = mlx_xpm_file_to_image(mlx->ptr,
-			"sprites/water_20x20.xpm", &mlx->n, &mlx->n);
+			"sprites/water_200x200.xpm", &mlx->n, &mlx->n);
 }
 
 //parse map, handle errors, convert into interactive 2d video game
@@ -63,7 +63,7 @@ int	main(int ac, char **av)
 	map_init(&map, av[1]);
 	checkmap(&map);
 	mlx.ptr = mlx_init();
-	mlx.win = mlx_new_window(mlx.ptr, 300, 180, "Not_Pokemon");
+	mlx.win = mlx_new_window(mlx.ptr, 3000, 1800, "Not_Pokemon");
 	mlx_key_hook(mlx.win, key_event, &mlx);
 	mlx_hook(mlx.win, 17, 0L, close_window, &mlx);
 	img_init(&mlx);
